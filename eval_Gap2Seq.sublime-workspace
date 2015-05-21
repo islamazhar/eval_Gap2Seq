@@ -1,0 +1,1338 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Dil",
+				"D Gillet-Markowska15032015: Ulysses: accurate detection of low-frequency structural variations in large insert-size sequencing libraries"
+			],
+			[
+				"rhod",
+				"rhodo_wide"
+			],
+			[
+				"su",
+				"sub	Sub Section"
+			],
+			[
+				"mo",
+				"modified_chunk"
+			],
+			[
+				"mod",
+				"modified_chunk"
+			],
+			[
+				"modi",
+				"modified_chunks"
+			],
+			[
+				"chun",
+				"chunks"
+			],
+			[
+				"ch",
+				"chunks"
+			],
+			[
+				"genome_",
+				"genome_seqs"
+			],
+			[
+				"ge",
+				"genome"
+			],
+			[
+				"b",
+				"b"
+			],
+			[
+				"TP",
+				"TP_r"
+			],
+			[
+				"reap",
+				"reapr_database"
+			],
+			[
+				"gap",
+				"gapsizes"
+			],
+			[
+				"rea",
+				"reapr_database"
+			],
+			[
+				"cur",
+				"current_scaf"
+			],
+			[
+				"get",
+				"getdistr_out"
+			],
+			[
+				"avg_re",
+				"avg_region_mean_obs"
+			],
+			[
+				"region_",
+				"region_nr_obs"
+			],
+			[
+				"region",
+				"region_pvalues"
+			],
+			[
+				"corre",
+				"corrected_pval"
+			],
+			[
+				"x",
+				"x_min"
+			],
+			[
+				"cdf_",
+				"cdf_list"
+			],
+			[
+				"sta",
+				"start"
+			],
+			[
+				"tot",
+				"total_restriction_positions"
+			],
+			[
+				"tru",
+				"true_distribution"
+			],
+			[
+				"get_",
+				"get_correct_ECDF"
+			],
+			[
+				"me",
+				"mean"
+			],
+			[
+				"ass",
+				"assembly_dict"
+			],
+			[
+				"sca",
+				"scaf_name"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"scaf",
+				"scaf_name"
+			],
+			[
+				"errors",
+				"errorsizes"
+			],
+			[
+				"data",
+				"database"
+			],
+			[
+				"FP",
+				"FPs"
+			],
+			[
+				"out",
+				"outfile"
+			],
+			[
+				"pva",
+				"pval_file_in"
+			],
+			[
+				"info",
+				"info_file"
+			],
+			[
+				"sample_",
+				"sample_nr"
+			],
+			[
+				"curren",
+				"current_scaf"
+			],
+			[
+				"en",
+				"end_pos"
+			],
+			[
+				"median",
+				"median_pos"
+			],
+			[
+				"wind",
+				"window_size"
+			],
+			[
+				"avg_",
+				"avg_pval"
+			],
+			[
+				"win",
+				"window_size"
+			],
+			[
+				"windo",
+				"window_size"
+			],
+			[
+				"sign",
+				"significant"
+			],
+			[
+				"pval",
+				"pval_file"
+			],
+			[
+				"refere",
+				"references"
+			],
+			[
+				"inner",
+				"inner_start_pos"
+			],
+			[
+				"refe",
+				"reference_tids"
+			],
+			[
+				"sam",
+				"sample_size"
+			],
+			[
+				"is",
+				"isize_list"
+			],
+			[
+				"c",
+				"current_coord"
+			],
+			[
+				"cu",
+				"current_scaf"
+			],
+			[
+				"curre",
+				"current_ref"
+			],
+			[
+				"current",
+				"current_scaf"
+			],
+			[
+				"ctg",
+				"ctg_dict"
+			],
+			[
+				"isize",
+				"isize_list"
+			],
+			[
+				"p_va",
+				"p_values"
+			],
+			[
+				"adj",
+				"adjusted_mean"
+			],
+			[
+				"ad",
+				"adjusted_mean"
+			],
+			[
+				"st",
+				"std_dev_isize"
+			],
+			[
+				"cdf_l",
+				"cdf_list_normalized"
+			],
+			[
+				"cd",
+				"cdf_list_normalized"
+			],
+			[
+				"cdf",
+				"cdf_dict"
+			],
+			[
+				"std",
+				"stddev"
+			],
+			[
+				"m",
+				"mean_insert"
+			],
+			[
+				"read",
+				"read_len"
+			],
+			[
+				"scaff",
+				"scaffold_tp_fp"
+			],
+			[
+				"scad",
+				"scaffold_tp_fp"
+			],
+			[
+				"true",
+				"true_distr"
+			],
+			[
+				"cal",
+				"calc_ks_test"
+			],
+			[
+				"pred",
+				"pred_scaf"
+			],
+			[
+				"fast",
+				"fasta_iter"
+			],
+			[
+				"sum_",
+				"sum_of_natural_numbers"
+			],
+			[
+				"po",
+				"poisson"
+			],
+			[
+				"so",
+				"soft"
+			],
+			[
+				"nor",
+				"normpdf"
+			],
+			[
+				"in",
+				"insertion_size"
+			],
+			[
+				"ins",
+				"ins_size"
+			],
+			[
+				"s",
+				"stddev"
+			],
+			[
+				"erro",
+				"errors_length"
+			],
+			[
+				"fp_",
+				"fp_ins"
+			],
+			[
+				"y_del",
+				"y_del_true"
+			],
+			[
+				"x_y",
+				"x_y_ins_false"
+			],
+			[
+				"y_in",
+				"y_ins_true"
+			],
+			[
+				"x_",
+				"x_ins_true"
+			],
+			[
+				"del_",
+				"del_false"
+			],
+			[
+				"ins_",
+				"ins_false"
+			],
+			[
+				"inse",
+				"inse"
+			],
+			[
+				"par",
+				"parse_results"
+			],
+			[
+				"link",
+				"link_name"
+			],
+			[
+				"exte",
+				"extension_5"
+			],
+			[
+				"obse",
+				"observ"
+			],
+			[
+				"sor",
+				"sorted_segments"
+			],
+			[
+				"segm",
+				"segments"
+			],
+			[
+				"segme",
+				"segments"
+			],
+			[
+				"ext",
+				"extension_5"
+			],
+			[
+				"def",
+				"defaultdict"
+			],
+			[
+				"lik",
+				"linkings"
+			],
+			[
+				"lin",
+				"linkings"
+			],
+			[
+				"add_",
+				"add_point"
+			],
+			[
+				"fa",
+				"fa"
+			],
+			[
+				"gen",
+				"genome_path"
+			],
+			[
+				"read_",
+				"read2_path"
+			],
+			[
+				"genome",
+				"genome_path"
+			],
+			[
+				"geno",
+				"genomics_tools"
+			],
+			[
+				"si",
+				"sigma"
+			],
+			[
+				"co",
+				"coverage"
+			],
+			[
+				"list",
+				"list_of_obs"
+			],
+			[
+				"expe",
+				"expected_insert"
+			],
+			[
+				"fil",
+				"filtered_list"
+			],
+			[
+				"mean",
+				"mean_isize"
+			],
+			[
+				"isi",
+				"isize_list"
+			],
+			[
+				"std_",
+				"std_dev_isize"
+			],
+			[
+				"mean_",
+				"mean_isize"
+			],
+			[
+				"cluster",
+				"cluster_length_span"
+			],
+			[
+				"clusterin",
+				"clusterinfo"
+			],
+			[
+				"clu",
+				"clusters"
+			],
+			[
+				"add",
+				"add_bp_to_cluster"
+			],
+			[
+				"min",
+				"min_pos"
+			],
+			[
+				"max",
+				"max_pos"
+			],
+			[
+				"ex",
+				"exp_insert"
+			],
+			[
+				"tot_",
+				"tot_mean"
+			],
+			[
+				"calc_",
+				"calc_observed_insert"
+			],
+			[
+				"p_value_",
+				"p_value_upper_area"
+			],
+			[
+				"cont",
+				"container"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "old_main_gapfilling_evaluation.sh",
+			"settings":
+			{
+				"buffer_size": 7970,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"command_palette":
+	{
+		"height": 347.0,
+		"selected_items":
+		[
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"latex",
+				"LaTeXing: Open User Preferences"
+			],
+			[
+				"late",
+				"LaTeXing: Open Default Preferences"
+			],
+			[
+				"latextools",
+				"LaTeXTools: Reconfigure and migrate settings"
+			],
+			[
+				"ssla",
+				"Set Syntax: LaTeX"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"git p",
+				"Git: Push"
+			],
+			[
+				"gits",
+				"Git: Status"
+			],
+			[
+				"git sts",
+				"Git: Status"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"gitsta",
+				"Git: Status"
+			],
+			[
+				"ssba",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"sssh",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"git statu",
+				"Git: Status"
+			],
+			[
+				"ssp",
+				"Set Syntax: Python"
+			],
+			[
+				"",
+				"Code Folding: Unfold All"
+			],
+			[
+				"git pu	",
+				"Git: Push"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"git ss",
+				"Git: Status"
+			],
+			[
+				"git diff",
+				"Git: Diff"
+			],
+			[
+				"gtsta",
+				"Git: Status"
+			],
+			[
+				"git",
+				"Git: Push"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"print",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			],
+			[
+				"prefbro",
+				"Preferences: Browse Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"open",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"gst",
+				"Git: Status"
+			],
+			[
+				"gin",
+				"Git: Init"
+			],
+			[
+				"proj",
+				"Project: Save As"
+			],
+			[
+				"proje",
+				"Project: Save As"
+			],
+			[
+				"build",
+				"Build: Build"
+			],
+			[
+				"VIEw pd",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"pdf",
+				"LaTeXTools: View PDF"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"ad",
+				"Project: Add Folder"
+			],
+			[
+				"save",
+				"Project: Save As"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"sspe",
+				"Set Syntax: Perl"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/ksahlin/Dropbox/GetDist/2_biases/OLD/supplemental/supplemental_data.tex",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/LaTeXing/LaTeXing.sublime-settings",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/User/LaTeXing.sublime-settings",
+		"/Users/ksahlin/Dropbox/GetDist/2_biases/supplemental/supplemental.tex",
+		"/Users/ksahlin/Dropbox/GetDist/2_biases/GetDistr.tex",
+		"/Users/ksahlin/Dropbox/GetDist/2_biases/supplemental/supplemental_data.tex",
+		"/Users/ksahlin/Dropbox/GetDist/nature-presubenq/supplemental/supplemental_data.tex",
+		"/Users/ksahlin/Dropbox/GetDist/nature-presubenq/GetDistr_nature_methods.tex",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/bwa_est.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/plot.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/reapr/FCD_test.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/assemblymodule/exSPAnder.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/svmodule/infer_variants.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/coverage.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/isize_estimates/get_real_results.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/plot.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/sim_out.txt",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/sim_in.txt",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/latex_table_generator.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/getdistr_results.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/cut_assemblies.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/model.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/svmodule/plot_tp.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/svmodule/infer_variants_h_index.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/svmodule/calc_m.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/getdistr.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/scripts/bwa/bam_file_gen.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/assemblymodule/infer_lib_distr.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/assemblymodule",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/infer_variants.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/theoretical.py",
+		"/Users/ksahlin/Documents/workspace/GetDistr/getdistr/empirical.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/score.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/util/read_sorted_bam.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/preprocess/get_splits.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/util/bamio.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/util/input_.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/sequence.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/interval.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/graph.py",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/ksahlin/Documents/workspace/besst2/test/subseqs.txt",
+		"/Users/ksahlin/Documents/workspace/besst2/test/historical_first_test/contigs.fa",
+		"/Users/ksahlin/Documents/workspace/besst2/test/links.txt",
+		"/Users/ksahlin/Documents/workspace/besst2/test/contig.fa",
+		"/Users/ksahlin/Documents/workspace/besst2/test/test.py",
+		"/Users/ksahlin/Documents/workspace/besst2/test/test_besst.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/preprocess/__init__.py",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/util/__init__.py",
+		"/Users/ksahlin/Documents/workspace/besst2/scripts/test.py",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/Users/ksahlin/Dropbox/Work/sublime-projects/besst2.sublime-project",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/Python/Python.sublime-workspace",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/README.md",
+		"/Users/ksahlin/Dropbox/Work/projects/besst2/scripts/test.py",
+		"/Users/ksahlin/Dropbox/Work/projects/besst2/besst2.sublime-project",
+		"/Users/ksahlin/Dropbox/Work/projects/testfile.py",
+		"/Applications/Sublime/ Text/ 2.app/Contents/MacOS/Pristine/ Packages/Python.sublime-package",
+		"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/ksahlin/.bash_profile",
+		"/Users/ksahlin/Documents/workspace/besst2/graph.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst/__init__.py",
+		"/Users/ksahlin/Documents/workspace/besst2/besst",
+		"/Users/ksahlin/Documents/workspace/besst2/preprocess/__init__.py",
+		"/private/tmp/latextest.tex",
+		"/tmp/test.py",
+		"/private/tmp/latextest.aux",
+		"/private/tmp/test.py",
+		"/tmp/latextest.tex"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"<project>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"result",
+			"sizes",
+			"from",
+			"we",
+			"Given \\ref{eq:model2} and",
+			"DRISM",
+			"Given DR",
+			"figures",
+			"rhodo_w",
+			"rhodo wi",
+			"subsection_name",
+			"subsection",
+			"plasm_pe",
+			"plasm_mp",
+			"rhodo_wide",
+			"rhodo_gage",
+			"[H]",
+			"0.39",
+			"[ht]",
+			"ht",
+			"wide",
+			"rhodo_wide",
+			"pdflatex",
+			"pdflater",
+			"eps",
+			"Stddev insert sizes over a base pair",
+			"Mean insert size over a base pair",
+			"Fitted normal distribution",
+			"normal",
+			"_p",
+			"p",
+			"_",
+			"rhodo_isize",
+			"howeven",
+			"doue",
+			"fig:plas",
+			"fig:plasm",
+			"plots_plasm",
+			"plasm",
+			"Plasm",
+			"plasm",
+			"rhodo",
+			"plasm",
+			"rhodo",
+			"pvalues_rhodo",
+			"rhody",
+			"plots_rhody",
+			"rhody",
+			"gapest_eval",
+			"_wide",
+			"plots_plasm",
+			"plots_rhody_wide",
+			"rhodo",
+			"plasm",
+			"table",
+			"ABySS2",
+			"ABySS2_naive",
+			"int",
+			"reapr_database1",
+			"MaxObsDistr",
+			"AdjustInsertsizeDist",
+			"is_proper_aligned_unique_innie",
+			"sof",
+			"print po",
+			"print  ",
+			"print 'position ",
+			"out",
+			"getdistr_results",
+			"final_bps",
+			"avg_p_val",
+			"pval",
+			"self.nobs",
+			"nobs",
+			"sample_size",
+			"nobs",
+			"x",
+			"tot_re",
+			"get_correct_ECDF",
+			"write_pval_to_file",
+			"calc_p_values",
+			"add_bp_to_cluster",
+			"calc_ks_test",
+			"param",
+			"ind",
+			"womenMeans",
+			"menMeans",
+			"'a'",
+			"get_true_normal_distribution",
+			"pval_f",
+			"i",
+			"filtered_b",
+			"filtered",
+			"region",
+			"dist_thresh",
+			"add_b",
+			"avg_",
+			"scaf_lengths",
+			"genome_length",
+			"i",
+			"add_bp_to_cluster",
+			"genome_length",
+			"get_misassemly_regions",
+			"sample_distribution",
+			"get_true_normal_distribution",
+			"adjusted_mean",
+			"clusters",
+			"get_final_bp_info",
+			"\n	",
+			"get_final_bp_info",
+			"median_",
+			"window_size",
+			"two_side_p_val",
+			"d",
+			"sv_conta",
+			"BreakP",
+			"p_val",
+			"pval",
+			"500",
+			"d",
+			"ParseBAMfile",
+			"20000",
+			"v_contain",
+			"calc_observed_insert",
+			"mean",
+			"is_read2",
+			"bam_file",
+			"param",
+			"BreakPointContainer"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "old_main_gapfilling_evaluation.sh",
+					"settings":
+					{
+						"buffer_size": 7970,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 156.0
+	},
+	"output.git-commit":
+	{
+		"height": 112.0
+	},
+	"output.git-init":
+	{
+		"height": 112.0
+	},
+	"output.git-push":
+	{
+		"height": 112.0
+	},
+	"output.latex_log":
+	{
+		"height": 118.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/LaTeXing/LaTeXing.sublime-settings"
+			],
+			[
+				"sup",
+				"supplemental/supplemental_data.tex"
+			],
+			[
+				"spli",
+				"scripts/reapr/split_ctgs.py"
+			],
+			[
+				"gits",
+				"*git-status*: GetDistr"
+			],
+			[
+				"co",
+				"getdistr/coverage.py"
+			],
+			[
+				"cov",
+				"getdistr/coverage.py"
+			],
+			[
+				"bw",
+				"scripts/bwa/bwa_est.py"
+			],
+			[
+				"plot",
+				"scripts/plot.py"
+			],
+			[
+				"isize_e",
+				"scripts/bwa/isize_estimates/get_real_results.py"
+			],
+			[
+				"exs",
+				"getdistr/assemblymodule/exSPAnder.py"
+			],
+			[
+				"p",
+				"scripts/plot.py"
+			],
+			[
+				"git",
+				"*git-status*: GetDistr"
+			],
+			[
+				"inf",
+				"getdistr/svmodule/infer_variants_h_index.py"
+			],
+			[
+				"in",
+				"getdistr/svmodule/infer_variants.py"
+			],
+			[
+				"g",
+				"*git-status*: GetDistr"
+			],
+			[
+				"infer_",
+				"getdistr/svmodule/infer_variants_h_index.py"
+			],
+			[
+				"infer",
+				"getdistr/svmodule/infer_variants_h_index.py"
+			],
+			[
+				"sv",
+				"getdistr/svmodule/infer_variants.py"
+			],
+			[
+				"i",
+				"getdistr/svmodule/infer_variants.py"
+			],
+			[
+				"input_",
+				"besst/util/input_.py"
+			],
+			[
+				"tes",
+				"test/test_besst.py"
+			],
+			[
+				"min",
+				"scripts/main.py"
+			],
+			[
+				"main",
+				"scripts/main.py"
+			],
+			[
+				"int",
+				"besst/interval.py"
+			],
+			[
+				"seq",
+				"besst/sequence.py"
+			],
+			[
+				"inp",
+				"besst/util/input_.py"
+			],
+			[
+				"te",
+				"scripts/test.py"
+			],
+			[
+				"gr",
+				"besst/graph.py"
+			],
+			[
+				"inter",
+				"besst/interval.py"
+			],
+			[
+				"gra",
+				"besst/graph.py"
+			],
+			[
+				"test",
+				"scripts/test.py"
+			],
+			[
+				"wei",
+				"besst/weighted_interval.py"
+			],
+			[
+				"/",
+				"scripts/test.py"
+			],
+			[
+				"de",
+				"/Users/ksahlin/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap"
+			],
+			[
+				"la",
+				"/private/tmp/latextest.tex"
+			],
+			[
+				"l",
+				"/tmp/latextest.tex"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/ksahlin/Dropbox/Work/sublime-projects/svest.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 194.0,
+	"status_bar_visible": true
+}
