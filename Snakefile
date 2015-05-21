@@ -191,8 +191,6 @@ rule Gap2Seq:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-        path = config["gap2seq_rules"]["path"],
-        python=config["PYTHON2"],
         jobname = "{dataset}_{contamine}_{assembler}"+"_GAP2SEQ",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
@@ -203,22 +201,88 @@ rule Gap2Seq:
         shell("{time} Gap2Seq -filled {output.fasta} -scaffolds {input.scaffolds} -reads {input.reads} 1>  {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
 
+rule GapCloser:
+    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
+            config = lambda wildcards: config[wildcards.dataset]["GAPCLOSER_CONFIG"],
+    output: fasta= config["OUTBASE"]+"{dataset}/GAPCLOSER_{assembler}.fa",
+            stderr= config["OUTBASE"]+"{dataset}/GAPCLOSER_{assembler}.stderr"
+    log: config["OUTBASE"]+"{dataset}/GAPCLOSER.log
+    params: 
+        runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPCLOSER_time"],
+        memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPCLOSER",
+        account = config["SBATCH"]["ACCOUNT"],
+        mail = config["SBATCH"]["MAIL"],
+        mail_type = config["SBATCH"]["MAIL_TYPE"]
+    run:
+        time = config["GNUTIME"]
+        stdout = config["OUTBASE"]+"{0}/GAPCLOSER_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
+        shell("{time} GapCloser -a {input.scaffolds} -b {input.config} -o {output.fasta} 1> {stdout} 2> {output.stderr} ")
+        shell("cat {stdout} {output.stderr} > {log}")
+
+rule GapFiller_bwa:
+    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
+            config = lambda wildcards: config[wildcards.dataset]["GAPFILLER_BWA_CONFIG"],
+    output: fasta= config["OUTBASE"]+"{dataset}/GAPFILLER_BWA_{assembler}.fa",
+            stderr= config["OUTBASE"]+"{dataset}/GAPFILLER_BWA_{assembler}.stderr"
+    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BWA.log
+    params: 
+        runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPFILLER_BWA_time"],
+        memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPFILLER_BWA",
+        account = config["SBATCH"]["ACCOUNT"],
+        mail = config["SBATCH"]["MAIL"],
+        mail_type = config["SBATCH"]["MAIL_TYPE"]
+    run:
+        time = config["GNUTIME"]
+        stdout = config["OUTBASE"]+"{0}/GAPFILLER_BWA_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
+        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b {dataset}_{assembler} > {stdout} 2> {output.stderr} ")
+        shell("cat {stdout} {output.stderr} > {log}")
+        shell("mv {dataset}_{assembler}/{dataset}_{assembler}.gapfilled.final.fa {output.fasta}")
+        shell("rm -r {dataset}_{assembler}")
+
+rule GapFiller_bowtie:
+    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
+            config = lambda wildcards: config[wildcards.dataset]["GAPFILLER_BOWTIE_CONFIG"],
+    output: fasta= config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE_{assembler}.fa",
+            stderr= config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE_{assembler}.stderr"
+    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE.log
+    params: 
+        runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPFILLER_BOWTIE_time"],
+        memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPFILLER_BOWTIE",
+        account = config["SBATCH"]["ACCOUNT"],
+        mail = config["SBATCH"]["MAIL"],
+        mail_type = config["SBATCH"]["MAIL_TYPE"]
+    run:
+        time = config["GNUTIME"]
+        stdout = config["OUTBASE"]+"{0}/GAPFILLER_BOWTIE_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
+        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b {dataset}_{assembler} > {stdout} 2> {output.stderr} ")
+        shell("cat {stdout} {output.stderr} > {log}")
+        shell("mv {dataset}_{assembler}/{dataset}_{assembler}.gapfilled.final.fa {output.fasta}")
+        shell("rm -r {dataset}_{assembler}")
 
 rule ORIGINAL:
-    input:  ctgs = lambda wildcards: config[wildcards.experiment][wildcards.contamine][wildcards.assembler]["CONTIGS"],
-    output: fasta= config["OUTBASE"]+"{experiment}/{contamine}/ORIGINAL_{assembler}.fa"
+    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["CONTIGS"],
+    output: fasta= config["OUTBASE"]+"{dataset}/ORIGINAL_{assembler}.fa"
     params: 
         runtime="10:00",
         memsize = "mem128GB",
         partition = "core",
         n = "1",
-        jobname = "{experiment}_{assembler}_{contamine}"+"_ORIGINAL",
+        jobname = "{dataset}_{assembler}_{contamine}"+"_ORIGINAL",
         account=config["SBATCH"]["ACCOUNT"],
         mail=config["SBATCH"]["MAIL"],
         mail_type=config["SBATCH"]["MAIL_TYPE"]
     run:
         time = config["GNUTIME"]
-        shell("{time} cp {input.ctgs} {output.fasta} ")
+        shell("{time} cp {input.scaffolds} {output.fasta} ")
 
 rule QUAST:
    input: scaffolds=config["OUTBASE"]+"{experiment}/{contamine}/{scaffolder}_{assembler}.fa",
