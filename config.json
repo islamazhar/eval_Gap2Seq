@@ -159,6 +159,5 @@
 	"LOAD_PYTHON_ENV" : "pyenv global system 3.4.1 2.7.6",
 	"PYTHON2" : "python2.7",
 	"GNUTIME" : "/usr/bin/time -v",
-	"INBASE" : "/proj/b2013169/private/data/besst_pe_cont/data/",
-	"OUTBASE" : "/proj/b2013169/private/data/besst_pe_cont/output/" 
+	"OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/" 
 }

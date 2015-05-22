@@ -77,25 +77,25 @@ def  parse_gnu_time(stderr_file):
 def performance_input(wildcards):
   input_list_to_performance_latex_table = []
   
-  if wildcards.experiment == "staph":
+  if wildcards.dataset == "staph":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"staph/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"staph/{0}_{1}_time_and_mem.txt".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_performance_latex_table.append(fname)
 
-  if wildcards.experiment == "rhodo":
+  if wildcards.dataset == "rhodo":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"rhodo/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"rhodo/{0}_{1}_time_and_mem.txt".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_performance_latex_table.append(fname)
 
 
-  if wildcards.experiment == "hs14":
+  if wildcards.dataset == "hs14":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"hs14/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"hs14/{0}_{1}_time_and_mem.txt".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_performance_latex_table.append(fname)
 
@@ -108,24 +108,24 @@ def quality_input(wildcards):
   """
   input_list_to_quality_latex_table = []
 
-  if wildcards.experiment == "staph":
+  if wildcards.dataset == "staph":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"staph/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"staph/quast_{0}_{1}.csv".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_quality_latex_table.append(fname)
 
-  if wildcards.experiment == "rhodo":
+  if wildcards.dataset == "rhodo":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"rhodo/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"rhodo/quast_{0}_{1}.csv".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_quality_latex_table.append(fname)
 
-  if wildcards.experiment == "hs14":
+  if wildcards.dataset == "hs14":
     for gapfiller in config["GAPFILLERS"]:
       for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
-        fname = config["OUTBASE"]+"hs14/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        fname = config["OUTBASE"]+"hs14/quast_{0}_{1}.csv".format(gapfiller, assembly)
         if os.path.isfile(fname):
           input_list_to_quality_latex_table.append(fname)
 
@@ -328,13 +328,13 @@ rule ORIGINAL:
 
 rule QUAST:
    input: scaffolds=config["OUTBASE"]+"{experiment}/{contamine}/{scaffolder}_{assembler}.fa",
-            ref = lambda wildcards: config[wildcards.experiment]["REF"]
+            ref = lambda wildcards: config[wildcards.dataset]["REF"]
    output: nice_format=config["OUTBASE"]+"{experiment}/{contamine}/quast_{scaffolder}_{assembler}.csv" 
    params: 
-       runtime=lambda wildcards: config["SBATCH"][wildcards.experiment]["quast_time"],
-        memsize = lambda wildcards: config["SBATCH"][wildcards.experiment]["small_memsize"],
-        partition = lambda wildcards: config["SBATCH"][wildcards.experiment]["small_partition"],
-        n = lambda wildcards: config["SBATCH"][wildcards.experiment]["small_n"],
+       runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
+        memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
        jobname="quast_{experiment}_{contamine}_{scaffolder}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
@@ -346,7 +346,7 @@ rule QUAST:
        #out=config['OUTBASE']
        path=config["quast_rules"]["path"]
        min_contig =  config["quast_rules"]["min_contig"]
-       outpath="/tmp/{0}_{1}_{2}_{3}/QUAST/".format(wildcards.experiment, wildcards.contamine, wildcards.scaffolder, wildcards.assembler)
+       outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.scaffolder, wildcards.assembler)
        shell(" {python} {path}quast.py -R  {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
        misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
        #e_size = get_esize(input.scaffolds)
@@ -355,31 +355,31 @@ rule QUAST:
 
 
 rule time_and_mem:
-   input:  stderr=config["OUTBASE"]+"{experiment}/{contamine}/{scaffolder}_{assembler}.stderr"
-   output: outfile=config["OUTBASE"]+"{experiment}/{contamine}/{scaffolder}_{assembler}_time_and_mem.txt"
+   input:  stderr=config["OUTBASE"]+"{dataset}/{scaffolder}_{assembler}.stderr"
+   output: outfile=config["OUTBASE"]+"{dataset}/{scaffolder}_{assembler}_time_and_mem.txt"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
        partition = "core",
        n = "1",
-       jobname="{experiment}_{assembler}_{contamine}"+"_time_and_mem",
+       jobname="{assembler}"+"_time_and_mem",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
    run:
        usertime, wallclocktime, memory_gb =  parse_gnu_time(input.stderr)
-       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}".format(wildcards.experiment, wildcards.assembler, wildcards.scaffolder, usertime, wallclocktime, memory_gb), file=open(output.outfile, 'w') )
+       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}".format(wildcards.dataset, wildcards.assembler, wildcards.scaffolder, usertime, wallclocktime, memory_gb), file=open(output.outfile, 'w') )
        
 
 rule performace_latex_table:
    input: files=performance_input
-   output: table=config["OUTBASE"]+"performance_table_{experiment}_{contamine}.tex"
+   output: table=config["OUTBASE"]+"performance_table_{dataset}.tex"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
        partition = "core",
        n = "1",
-       jobname="performace_latex_table_{experiment}_{contamine}",
+       jobname="performace_latex_table_{dataset}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
@@ -456,13 +456,13 @@ rule performace_latex_table:
 
 rule quality_latex_table:
    input: files=quality_input 
-   output: table=config["OUTBASE"]+"quality_table_{experiment}.tex"
+   output: table=config["OUTBASE"]+"quality_table_{dataset}.tex"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
        partition = "core",
        n = "1",
-       jobname="quality_latex_table_{experiment}",
+       jobname="quality_latex_table_{dataset}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
