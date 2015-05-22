@@ -138,9 +138,8 @@ def latex_tables(wildcards):
   input_= []
 
   for experiment in config["DATASETS"]:
-    input_.append(config["OUTBASE"]+"performance_table_{0}_{1}.tex".format(experiment, contamine))
-    input_.append(config["OUTBASE"]+"percentage_quality_table_{0}_{1}.tex".format(experiment, contamine))
-    input_.append(config["OUTBASE"]+"quality_table_{0}_{1}.tex".format(experiment, contamine))
+    input_.append(config["OUTBASE"]+"performance_table_{0}.tex".format(experiment))
+    input_.append(config["OUTBASE"]+"quality_table_{0}.tex".format(experiment))
 
       # if experiment == "rhodo":
       #   input_.append(config["OUTBASE"]+"performance_table_{0}_{1}.tex".format(experiment, contamine))
@@ -457,13 +456,13 @@ rule performace_latex_table:
 
 rule quality_latex_table:
    input: files=quality_input 
-   output: table=config["OUTBASE"]+"quality_table_{experiment}_{contamine}.tex"
+   output: table=config["OUTBASE"]+"quality_table_{experiment}.tex"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
        partition = "core",
        n = "1",
-       jobname="quality_latex_table_{experiment}_{contamine}",
+       jobname="quality_latex_table_{experiment}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
@@ -532,104 +531,6 @@ rule quality_latex_table:
 
         print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9} \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
         print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9} \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
-
-
-
-rule quality_latex_table_percentages:
-   input: files=quality_input 
-   output: table=config["OUTBASE"]+"percentage_quality_table_{experiment}_{contamine}.tex"
-   params: 
-       runtime="15:00",
-       memsize = "'mem128GB|mem256GB|mem512GB'",
-       partition = "core",
-       n = "1",
-       jobname="percenatge_quality_latex_table_{experiment}_{contamine}",
-       account=config["SBATCH"]["ACCOUNT"],
-       mail=config["SBATCH"]["MAIL"],
-       mail_type=config["SBATCH"]["MAIL_TYPE"]
-   run:
-        # get original assembly metrics to compute perceantages
-        assembly_dict = {}
-        for file_ in input.files:
-            line=open(file_,'r').readlines()[0]  
-            vals = line.strip().split()
-            assembler, scaffolder, totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = vals
-            totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = map(lambda x : float(x), [totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g] )
-            if scaffolder == "ORIGINAL":
-                assembly_dict[assembler] = {'assm-size' : totsize , 'NG50' : NG50 ,
-                                         'misassm' :  misassm, 'NGA50' : NGA50, 'E_a' : E_a ,
-                                          'E_g' : E_g, 'EA_A':EA_a, 'EA_g' : EA_g }
-
-        table_file = open(output.table, 'w')
-        print("{0} & {1} & {2} & {3} & {4}  \\\ \hline".format('assembly', 'tool', 'size-diff', 'misassm', '$EA_s/EA_c$'), file=table_file)
-
-        prev_scaffolder = -1
-
-        for file_ in input.files:
-            line=open(file_,'r').readlines()[0]  
-            vals = line.strip().split()
-            assembler, scaffolder, totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = vals
-
-            totsize_perc = round(int(totsize) / assembly_dict[assembler]['assm-size'] , 3)
-            misassm_diff = int(misassm) - int(assembly_dict[assembler]['misassm'])
-            EA_g_perc = round(float(EA_g) / assembly_dict[assembler]['EA_g'] , 1)
-
-
-            if prev_scaffolder == -1:
-                sum_values = ["TOTAL", scaffolder, 0, 0, 0]
-                completed_experiment_count = 0
-
-            if scaffolder != prev_scaffolder and prev_scaffolder != -1:
-                average_values = list(sum_values)
-                average_values[0] = "AVERAGE"
-                for i, item in enumerate(sum_values): 
-                    try:
-                        value = float(item)
-                        average_values[i] = round((value/completed_experiment_count),3)
-                        sum_values[i] = round(item,3) 
-                    except ValueError:
-                        pass
-
-                print("{0} & {1} & {2} & {3} & {4}  \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
-                print("{0} & {1} & {2} & {3} & {4}  \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
-
-                assembler, scaffolder, totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = vals
-                sum_values = ["TOTAL", scaffolder, 0, 0, 0]
-                completed_experiment_count = 1
-                for i, item in enumerate([assembler, scaffolder, totsize_perc, misassm_diff, EA_g_perc]): 
-                    try:
-                        value = float(item)
-                        sum_values[i] = value
-                    except ValueError:
-                        pass
-
-            else:
-                completed_experiment_count += 1
-                for i, item in enumerate([assembler, scaffolder, totsize_perc, misassm_diff, EA_g_perc]): 
-                    try:
-                        value = float(item)
-                        sum_values[i] += value
-                    except ValueError:
-                        pass
-
-            prev_scaffolder = scaffolder
-
-
-            print("{0} & {1} & {2} & {3} & {4} \\\ ".format(assembler, scaffolder, totsize_perc, misassm_diff,EA_g_perc), file=table_file)
-
-        average_values = list(sum_values)
-        average_values[0] = "AVERAGE"
-        for i, item in enumerate(sum_values): 
-            try:
-                value = float(item)
-                average_values[i] = round(value/completed_experiment_count, 3)
-                sum_values[i] = round(item,3) 
-
-            except ValueError:
-                pass
-
-        print("{0} & {1} & {2} & {3} & {4} \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
-        print("{0} & {1} & {2} & {3} & {4} \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
 
 
 
