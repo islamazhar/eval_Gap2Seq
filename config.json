@@ -46,7 +46,7 @@
                         "small_partition" : "core", 
                         "small_n" : "2",
                         "small_memsize" : "'mem128GB|mem256GB|mem512GB'"
-                        },
+                        }
     },
 
     "DATASETS" : [ "staph"],
@@ -72,7 +72,7 @@
                 "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Velvet/genome.scf.fasta"
                                     },
                 "MERGED_READS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/frag_merged.fastq.gz",
-                        },
+                       
 
 
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],

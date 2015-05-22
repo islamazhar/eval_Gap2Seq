@@ -166,10 +166,10 @@ rule all:
 
 rule Gap2Seq:
     input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
-            reads = lambda wildcards: config[wildcards.dataset]["MERGED_READS"],
+            reads = lambda wildcards: config[wildcards.dataset]["MERGED_READS"]
     output: fasta= config["OUTBASE"]+"{dataset}/GAP2SEQ_{assembler}.fa",
             stderr= config["OUTBASE"]+"{dataset}/GAP2SEQ_{assembler}.stderr"
-    log: config["OUTBASE"]+"{dataset}/GAP2SEQ.log
+    log: config["OUTBASE"]+"{dataset}/GAP2SEQ.log"
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["gap2seq_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
@@ -187,10 +187,10 @@ rule Gap2Seq:
 
 rule GapCloser:
     input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
-            config = lambda wildcards: config[wildcards.dataset]["GAPCLOSER_CONFIG"],
+            config = lambda wildcards: config[wildcards.dataset]["GAPCLOSER_CONFIG"]
     output: fasta= config["OUTBASE"]+"{dataset}/GAPCLOSER_{assembler}.fa",
             stderr= config["OUTBASE"]+"{dataset}/GAPCLOSER_{assembler}.stderr"
-    log: config["OUTBASE"]+"{dataset}/GAPCLOSER.log
+    log: config["OUTBASE"]+"{dataset}/GAPCLOSER.log"
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPCLOSER_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
@@ -211,7 +211,7 @@ rule GapFiller_bwa:
             config = lambda wildcards: config[wildcards.dataset]["GAPFILLER_BWA_CONFIG"],
     output: fasta= config["OUTBASE"]+"{dataset}/GAPFILLER_BWA_{assembler}.fa",
             stderr= config["OUTBASE"]+"{dataset}/GAPFILLER_BWA_{assembler}.stderr"
-    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BWA.log
+    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BWA.log"
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPFILLER_BWA_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
@@ -234,7 +234,7 @@ rule GapFiller_bowtie:
             config = lambda wildcards: config[wildcards.dataset]["GAPFILLER_BOWTIE_CONFIG"],
     output: fasta= config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE_{assembler}.fa",
             stderr= config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE_{assembler}.stderr"
-    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE.log
+    log: config["OUTBASE"]+"{dataset}/GAPFILLER_BOWTIE.log"
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPFILLER_BOWTIE_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
