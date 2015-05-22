@@ -132,14 +132,96 @@ def quality_input(wildcards):
   return input_list_to_quality_latex_table
 
 
+def scaffolded_fasta_files(wildcards):
+  input_= []
+
+  for dataset in config["DATASETS"]:
+    if dataset == "staph":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          input_.append(config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler))
+
+    if dataset == "rhodo":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          input_.append(config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler))
+
+    if dataset == "hs14":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          input_.append(config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler))
+
+  return input_
+
+
+def eval_csv_files(wildcards):
+  input_= []
+
+  for dataset in config["DATASETS"]:
+    if dataset == "staph":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/quast_{1}_{2}.csv".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+    if dataset == "rhodo":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/quast_{1}_{2}.csv".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+
+    if dataset == "hs14":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.fa".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/quast_{1}_{2}.csv".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+  return input_
+
+def performance_csv_files(wildcards):
+  input_= []
+
+  for dataset in config["DATASETS"]:
+    if dataset == "staph":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.stderr".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/{1}_{2}_time_and_mem.txt".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+    if dataset == "rhodo":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.stderr".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/{1}_{2}_time_and_mem.txt".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+    if dataset == "hs14":
+      for gapfiller in config["GAPFILLERS"]:
+        for assembler in ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+          infile_name = config["OUTBASE"]+"{0}/{1}_{2}.stderr".format(dataset, gapfiller, assembler)
+          if os.path.isfile(infile_name):
+            outfile_name = config["OUTBASE"]+"{0}/{1}_{2}_time_and_mem.txt".format(dataset, gapfiller, assembler)
+            input_.append(outfile_name)
+
+  return input_
 
 
 def latex_tables(wildcards):
   input_= []
 
-  for experiment in config["DATASETS"]:
-    input_.append(config["OUTBASE"]+"performance_table_{0}.tex".format(experiment))
-    input_.append(config["OUTBASE"]+"quality_table_{0}.tex".format(experiment))
+  for dataset in config["DATASETS"]:
+    input_.append(config["OUTBASE"]+"performance_table_{0}.tex".format(dataset))
+    input_.append(config["OUTBASE"]+"quality_table_{0}.tex".format(dataset))
 
       # if experiment == "rhodo":
       #   input_.append(config["OUTBASE"]+"performance_table_{0}_{1}.tex".format(experiment, contamine))
@@ -189,33 +271,33 @@ rule all:
 #         mail=config["SBATCH"]["MAIL"],
 #         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-# rule eval_scaffolders:
-#     input:  eval_csv_files,
-#             performance_csv_files
-#             #expand(config["OUTBASE"]+"{experiment}/performance_table.tex",  experiment=config["EXPERIMENTS"]),
-#             #expand(config["OUTBASE"]+"{experiment}/quality_table.tex",  experiment=config["EXPERIMENTS"]), 
+rule eval_gapfillers:
+    input:  eval_csv_files,
+            performance_csv_files
+            #expand(config["OUTBASE"]+"{experiment}/performance_table.tex",  experiment=config["EXPERIMENTS"]),
+            #expand(config["OUTBASE"]+"{experiment}/quality_table.tex",  experiment=config["EXPERIMENTS"]), 
 
-#     params: 
-#         runtime="15:00",
-#         memsize = "mem128GB",
-#         partition = "core",
-#         n = "1",
-#         jobname="all",
-#         account=config["SBATCH"]["ACCOUNT"],
-#         mail=config["SBATCH"]["MAIL"],
-#         mail_type=config["SBATCH"]["MAIL_TYPE"]
+    params: 
+        runtime="15:00",
+        memsize = "mem128GB",
+        partition = "core",
+        n = "1",
+        jobname="all",
+        account=config["SBATCH"]["ACCOUNT"],
+        mail=config["SBATCH"]["MAIL"],
+        mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-# rule run_scaffolders:
-#     input: scaffolded_fasta_files  
-#     params: 
-#         runtime="15:00",
-#         memsize = "mem128GB",
-#         partition = "core",
-#         n = "1",
-#         jobname="all",
-#         account=config["SBATCH"]["ACCOUNT"],
-#         mail=config["SBATCH"]["MAIL"],
-#         mail_type=config["SBATCH"]["MAIL_TYPE"]
+rule run_gapfillers:
+    input: scaffolded_fasta_files  
+    params: 
+        runtime="15:00",
+        memsize = "mem128GB",
+        partition = "core",
+        n = "1",
+        jobname="all",
+        account=config["SBATCH"]["ACCOUNT"],
+        mail=config["SBATCH"]["MAIL"],
+        mail_type=config["SBATCH"]["MAIL_TYPE"]
 
 
 
