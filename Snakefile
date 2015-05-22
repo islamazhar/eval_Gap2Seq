@@ -106,12 +106,7 @@ def latex_tables(wildcards):
 
 ############## TARGET RULES ####################
 rule all:
-    input: latex_tables,
-            #expand(config["OUTBASE"]+"{experiment}/performance_table.tex",  experiment=config["EXPERIMENTS"]),
-            #expand(config["OUTBASE"]+"{experiment}/quality_table.tex",  experiment=config["EXPERIMENTS"]), 
-            #lambda wildcards: expand(config["INBASE"]+"{realdata}/{assembler}_mapped.bam", realdata=config["REALDATA"], assembler=config["REALDATA"]["ASSEMBLERS"])
-            contaminated_mapped_files,
-            reversed_read_files
+    input: latex_tables
     params: 
         runtime="15:00",
         memsize = "mem128GB",
@@ -122,60 +117,49 @@ rule all:
         mail=config["SBATCH"]["MAIL"],
         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-rule test:
-    input: config["OUTBASE"]+"quality_table_sim_30.tex",
-           config["OUTBASE"]+"percentage_quality_table_sim_30.tex",
-           expand(config["OUTBASE"]+"sim/30/quast_{scaffolder}_NA.csv",scaffolder=config["SCAFFOLDERS"])
-    params: 
-        runtime="15:00",
-        memsize = "mem128GB",
-        partition = "core",
-        n = "1",
-        jobname="all",
-        account=config["SBATCH"]["ACCOUNT"],
-        mail=config["SBATCH"]["MAIL"],
-        mail_type=config["SBATCH"]["MAIL_TYPE"]
+# rule test:
+#     input: config["OUTBASE"]+"quality_table_sim_30.tex",
+#            config["OUTBASE"]+"percentage_quality_table_sim_30.tex",
+#            expand(config["OUTBASE"]+"sim/30/quast_{scaffolder}_NA.csv",scaffolder=config["SCAFFOLDERS"])
+#     params: 
+#         runtime="15:00",
+#         memsize = "mem128GB",
+#         partition = "core",
+#         n = "1",
+#         jobname="all",
+#         account=config["SBATCH"]["ACCOUNT"],
+#         mail=config["SBATCH"]["MAIL"],
+#         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-rule eval_scaffolders:
-    input:  eval_csv_files,
-            performance_csv_files
-            #expand(config["OUTBASE"]+"{experiment}/performance_table.tex",  experiment=config["EXPERIMENTS"]),
-            #expand(config["OUTBASE"]+"{experiment}/quality_table.tex",  experiment=config["EXPERIMENTS"]), 
+# rule eval_scaffolders:
+#     input:  eval_csv_files,
+#             performance_csv_files
+#             #expand(config["OUTBASE"]+"{experiment}/performance_table.tex",  experiment=config["EXPERIMENTS"]),
+#             #expand(config["OUTBASE"]+"{experiment}/quality_table.tex",  experiment=config["EXPERIMENTS"]), 
 
-    params: 
-        runtime="15:00",
-        memsize = "mem128GB",
-        partition = "core",
-        n = "1",
-        jobname="all",
-        account=config["SBATCH"]["ACCOUNT"],
-        mail=config["SBATCH"]["MAIL"],
-        mail_type=config["SBATCH"]["MAIL_TYPE"]
+#     params: 
+#         runtime="15:00",
+#         memsize = "mem128GB",
+#         partition = "core",
+#         n = "1",
+#         jobname="all",
+#         account=config["SBATCH"]["ACCOUNT"],
+#         mail=config["SBATCH"]["MAIL"],
+#         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-rule run_scaffolders:
-    input: scaffolded_fasta_files  
-    params: 
-        runtime="15:00",
-        memsize = "mem128GB",
-        partition = "core",
-        n = "1",
-        jobname="all",
-        account=config["SBATCH"]["ACCOUNT"],
-        mail=config["SBATCH"]["MAIL"],
-        mail_type=config["SBATCH"]["MAIL_TYPE"]
+# rule run_scaffolders:
+#     input: scaffolded_fasta_files  
+#     params: 
+#         runtime="15:00",
+#         memsize = "mem128GB",
+#         partition = "core",
+#         n = "1",
+#         jobname="all",
+#         account=config["SBATCH"]["ACCOUNT"],
+#         mail=config["SBATCH"]["MAIL"],
+#         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-rule create_experiment_indata:
-    input: contaminated_mapped_files,
-            reversed_read_files
-    params: 
-        runtime="15:00",
-        memsize = "mem128GB",
-        partition = "core",
-        n = "1",
-        jobname="all",
-        account=config["SBATCH"]["ACCOUNT"],
-        mail=config["SBATCH"]["MAIL"],
-        mail_type=config["SBATCH"]["MAIL_TYPE"]
+
 
 ############## TARGET RULES END ####################
 
@@ -269,7 +253,7 @@ rule GapFiller_bowtie:
         shell("rm -r {dataset}_{assembler}")
 
 rule ORIGINAL:
-    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["CONTIGS"],
+    input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
     output: fasta= config["OUTBASE"]+"{dataset}/ORIGINAL_{assembler}.fa"
     params: 
         runtime="10:00",
@@ -591,98 +575,3 @@ rule quality_latex_table_percentages:
 
 
 
-rule CONTAMINE:
-  input: reads1=lambda wildcards: config[wildcards.realdata]["ORIGINAL_READ1"],
-          reads2=lambda wildcards: config[wildcards.realdata]["ORIGINAL_READ2"]
-  output: file1=config["INBASE"]+"{realdata}/{contamine}/frag1.fastq",
-	        file2=config["INBASE"]+"{realdata}/{contamine}/frag2.fastq"
-  params:
-     runtime="45:00",
-     memsize = "'mem128GB|mem256GB|mem512GB'",
-     partition = "core",
-     n = "2",
-     jobname="{realdata}"+"_contamine_{contamine}",
-     account=config["SBATCH"]["ACCOUNT"],
-     mail=config["SBATCH"]["MAIL"],
-     mail_type=config["SBATCH"]["MAIL_TYPE"],
-      ref=lambda wildcards: config[wildcards.realdata]["REF"],
-      length=lambda wildcards: config[wildcards.realdata]["READ_LENGTH"]
-  run:
-    if wildcards.contamine == "15":
-        mean = 300
-        sd=30
-        c= 0.15
-    elif wildcards.contamine == "40":
-        mean = 400
-        sd=40
-        c=0.40
-    elif wildcards.contamine == "0":
-        mean = 300
-        sd=30
-        c=0.00001       
-    """    
-        Receipt for simulate contaimination reads for real libraries:
-        1. count the number of reads in the original file = n
-        2. n_c =  n_r*c_ratio / (1- c_ratio) where c_ratio is the contamine ratio, n_c is the number of contemned reads
-        3. simulate k contaminated reads from 300,30 or 400,40. With the 
-            same average length as original reads in fastq.zg format
-        4. cat original_reads.gz sim_reads.gz > reads.fastq.gz
-    """    
-    nr_readpairs = int(list(shell("zcat {input.reads1} | wc -l ", iterable=True))[0]) /4
-    nr_contamine_reads = int( (nr_readpairs*c)/(1 - c) )
-    sim_path = "/tmp/{0}.frag".format(wildcards.realdata)
-    shell("generate_library {params.ref} {nr_contamine_reads} {params.length} {sim_path} {mean} {sd}")
-    shell("zcat -f {input.reads1} {sim_path}1.fastq > {output.file1} ")
-    shell("zcat -f {input.reads2} {sim_path}2.fastq > {output.file2} ")
-
-rule MAP:
-  input: file1=config["INBASE"]+"{realdata}/{contamine}/frag1.fastq",
-          file2=config["INBASE"]+"{realdata}/{contamine}/frag2.fastq",
-          contigs=map_input
-  output: bam=config["INBASE"]+"{realdata}/{contamine}/{assembly}_mapped.bam"
-  params:
-     runtime=lambda wildcards: config["SBATCH"][wildcards.realdata]["besst_time"],
-     memsize = "'mem128GB|mem256GB|mem512GB'",
-     partition = lambda wildcards: config["SBATCH"][wildcards.realdata]["partition"],
-     n = lambda wildcards: config["SBATCH"][wildcards.realdata]["n"],
-     prefix=config["INBASE"]+"{realdata}/{contamine}/{assembly}_mapped",
-     jobname="{realdata}_{contamine}_map_{assembly}",
-     account=config["SBATCH"]["ACCOUNT"],
-     mail=config["SBATCH"]["MAIL"],
-     mail_type=config["SBATCH"]["MAIL_TYPE"]
-  run:
-    if wildcards.realdata == "staph":
-      shell("map_reads -sort --bowtie2 {input.file1} {input.file2} {input.contigs} {params.prefix}")
-    else:
-      shell("map_reads -sort --bowtie2 --local {input.file1} {input.file2} {input.contigs} {params.prefix}")
-
-    print("map_reads -sort --bowtie2 {0} {1} {2} {3}".format(input.file1, input.file2, input.contigs, params.prefix))
-
-rule REVCOMP:
-    input:  reads1 = lambda wildcards: config[wildcards.experiment][wildcards.contamine]["READ1"],
-            reads2 = lambda wildcards: config[wildcards.experiment][wildcards.contamine]["READ2"]
-    output: reads1=config["INBASE"]+"{experiment}/{contamine}/frag1_fr.fastq",
-            reads2=config["INBASE"]+"{experiment}/{contamine}/frag2_fr.fastq"
-    params:
-     runtime="20:00",
-     memsize = "'mem128GB|mem256GB|mem512GB'",
-     partition = "core",
-     n = "1",
-     jobname="revcomp_{experiment}"+"_contamine_{contamine}",
-     account=config["SBATCH"]["ACCOUNT"],
-     mail=config["SBATCH"]["MAIL"],
-     mail_type=config["SBATCH"]["MAIL_TYPE"]
-
-    run:
-        shell("revcompfastx {input.reads1} > {output.reads1} ")
-        shell("revcompfastx {input.reads2} > {output.reads2} ")
-
-# rule clean:
-#     input:
-#     output:
-#     run:
-
-# rule test:
-#     input:
-#     output:
-#     run:

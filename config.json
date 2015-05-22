@@ -1,7 +1,6 @@
 {
     "besst_rules" : { 
-	"path" : "/proj/b2013169/private/kristoffer/python-repos/BESST/",
-	"lol" : "400"
+	"path" : "/proj/b2013169/private/kristoffer/python-repos/BESST/"
 		},
     "quast_rules" : {
         "path" : "/home/kris/source/quast-2.3/",
@@ -50,124 +49,92 @@
                         },
     },
 
-    "DATASETS" : [ "staph", "rhodo", "hs14"],
+    "DATASETS" : [ "staph"],
 
 
 
 
 
-    "staph" : { "0" : { "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/ABySS_mapped.bam"
+    "staph" : { "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS/genome.scf.fasta"
                             }, 
-                        "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS2/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/ABySS2_mapped.bam"
+                "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS2/genome.scf.fasta"
                                     }, 
-                        "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Bambus2/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/Bambus2_mapped.bam"
+                "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Bambus2/genome.scf.fasta"
                                     }, 
-                        "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Allpaths-LG/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/Allpaths-LG_mapped.bam"
+                "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Allpaths-LG/genome.scf.fasta"
                                     },
-                        "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/MSR-CA/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/MSR-CA_mapped.bam"
+                "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/MSR-CA/genome.scf.fasta"
                                     },
-                        "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SGA/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/SGA_mapped.bam"
+                "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SGA/genome.scf.fasta"
                                     },
-                        "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SOAPdenovo/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/SOAPdenovo_mapped.bam"
+                "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SOAPdenovo/genome.scf.fasta"
                                     },
-                        "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Velvet/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/Velvet_mapped.bam"
+                "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Velvet/genome.scf.fasta"
                                     },
-                        "READ1" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/frag1.fastq",
-                        "READ2" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/0/frag2.fastq"
+                "MERGED_READS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/frag_merged.fastq.gz",
                         },
 
 
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],
-                "READ_LENGTH" : "37",
-                "ORIENTATION" : "fr",
-                "BESST_ORIENTATION" : "rf",
-                "ISIZE" : "3630",
-                "STDDEV" : "259",
-                "ORIGINAL_READ1" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/shortjump_1.fastq.gz",
-                "ORIGINAL_READ2" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/shortjump_2.fastq.gz",
-                "OUTBASE" : "/proj/b2013169/private/data/besst_pe_cont/output/staph/",
-                "INBASE" : "/proj/b2013169/private/data/besst_pe_cont/data/staph/",
+                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/rhodo/",
                 "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/genome.fasta"
             },
 
-    "rhodo" : {  "0" : {  "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/ABySS/genome.ctg.fasta",
-                            "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/ABySS_mapped.bam"
+    "rhodo" : {   "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/ABySS/genome.scf.fasta"
                             }, 
-                        "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/ABySS2/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/ABySS2_mapped.bam"
+                    "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/ABySS2/genome.scf.fasta"
                                     }, 
-                        "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Bambus2/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/Bambus2_mapped.bam"
+                    "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Bambus2/genome.scf.fasta"
                                     }, 
-                        "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Allpaths-LG/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/Allpaths-LG_mapped.bam"
+                    "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Allpaths-LG/genome.scf.fasta"
                                     },
-                        "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/MSR-CA/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/MSR-CA_mapped.bam"
+                    "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/MSR-CA/genome.scf.fasta"
                                     },
-                        "CABOG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/CABOG/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/CABOG_mapped.bam"
+                    "CABOG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/CABOG/genome.scf.fasta"
                                     },
-                        "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/SGA/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/SGA_mapped.bam"
+                    "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/SGA/genome.scf.fasta"
                                     },
-                        "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/SOAPdenovo/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/SOAPdenovo_mapped.bam"
+                    "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/SOAPdenovo/genome.scf.fasta"
                                     },
-                        "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Velvet/genome.ctg.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/Velvet_mapped.bam"
+                    "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/Velvet/genome.scf.fasta"
                                     },
-                        "READ1" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/frag1.fastq",
-                        "READ2" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/0/frag2.fastq"
-                        },
 
+                    "MERGED_READS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Data.original/frag_merged.fastq.gz",
+
+                    "GAPCLOSER_CONFIG" : "tool_configs/GapCloser/Rhodobacter_sphaeroides.config", 
+                    "GAPFILLER_BWA_CONFIG" : "tool_configs/GapFiller_bwa/Rhodobacter_sphaeroides.config", 
+                    "GAPFILLER_BOWTIE_CONFIG" : "tool_configs/GapFiller_bowtie/Rhodobacter_sphaeroides.config", 
  
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],
-                "READ_LENGTH" : "101",
-                "ORIENTATION" : "fr",
-                "BESST_ORIENTATION" : "rf",
-                "ISIZE" : "3700",
-                "STDDEV" : "208",
-                "ORIGINAL_READ1" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Data.original/shortjump_1.fastq.gz",
-                "ORIGINAL_READ2" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Data.original/shortjump_2.fastq.gz",
-                "OUTBASE" : "/proj/b2013169/private/data/besst_pe_cont/output/rhodo/",
-                "INBASE" : "/proj/b2013169/private/data/besst_pe_cont/data/rhodo/",
+                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/rhodo/",
                 "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Data.original/genome.fasta"
             },
 
-    "hs14" : { "0" :  { "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS/genome.ctg.fasta",
+    "hs14" : { "0" :  { "ABySS" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS/genome.scf.fasta",
                             "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/ABySS_mapped.bam"
                             }, 
-                        "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS2/genome.ctg.fasta",
+                        "ABySS2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS2/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/ABySS2_mapped.bam"
                                     }, 
-                        "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Bambus2/genome.ctg.fasta",
+                        "Bambus2" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Bambus2/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Bambus2_mapped.bam"
                                     }, 
-                        "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Allpaths-LG/genome.ctg.fasta",
+                        "Allpaths-LG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Allpaths-LG/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Allpaths-LG_mapped.bam"
                                     },
-                        "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/MSR-CA/genome.ctg.fasta",
+                        "MSR-CA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/MSR-CA/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/MSR-CA_mapped.bam"
                                     },
-                        "CABOG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/CABOG/genome.ctg.fasta",
+                        "CABOG" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/CABOG/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/CABOG_mapped.bam"
                                     },
-                        "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SGA/genome.ctg.fasta",
+                        "SGA" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SGA/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/SGA_mapped.bam"
                                     },
-                        "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SOAPdenovo/genome.ctg.fasta",
+                        "SOAPdenovo" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SOAPdenovo/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/SOAPdenovo_mapped.bam"
                                     },
-                        "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Velvet/genome.ctg.fasta",
+                        "Velvet" : {"CONTIGS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Velvet/genome.scf.fasta",
                                     "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Velvet_mapped.bam"
                                     },
                         "READ1" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/frag1.fastq",
