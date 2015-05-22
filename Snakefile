@@ -74,6 +74,65 @@ def  parse_gnu_time(stderr_file):
     return usertime, tot_wallclock_secs, memory_gb
 
 
+def performance_input(wildcards):
+  input_list_to_performance_latex_table = []
+  
+  if wildcards.experiment == "staph":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"staph/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_performance_latex_table.append(fname)
+
+  if wildcards.experiment == "rhodo":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"rhodo/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_performance_latex_table.append(fname)
+
+
+  if wildcards.experiment == "hs14":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"hs14/{1}_{2}_time_and_mem.txt".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_performance_latex_table.append(fname)
+
+  return input_list_to_performance_latex_table
+
+
+def quality_input(wildcards):
+  """
+    Allows for missing files to input as some jobs may fail due to time constraints etc.
+  """
+  input_list_to_quality_latex_table = []
+
+  if wildcards.experiment == "staph":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"staph/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_quality_latex_table.append(fname)
+
+  if wildcards.experiment == "rhodo":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"rhodo/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_quality_latex_table.append(fname)
+
+  if wildcards.experiment == "hs14":
+    for gapfiller in config["GAPFILLERS"]:
+      for assembly in ["ABySS", "ABySS2", "Bambus2", "Allpaths-LG", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"]:
+        fname = config["OUTBASE"]+"hs14/quast_{1}_{2}.csv".format(gapfiller, assembly)
+        if os.path.isfile(fname):
+          input_list_to_quality_latex_table.append(fname)
+
+  return input_list_to_quality_latex_table
+
+
+
 
 def latex_tables(wildcards):
   input_= []
