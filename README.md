@@ -21,9 +21,15 @@ to activate python 3 in the current shell. Now run,
 
     $ snakemake
 
-This will create output
+to run the full pipeline (build all targets). This is probably not practical. There are two sub targets: run_gapfillers and eval_gapfillers. To only create the filled scaffolds fasta files run
 
-![Example](figures/terminal.png)
+    $ snakemake run_gapfillers
+
+To isolate for building only the filled scaffold files for e.g. staph, remove "rhodo" and "hs14" from the
+     "DATASETS" : [ "staph", "rhodo", "hs14"],
+
+line in the config.json file.
+
 
 To see a flowchart of the pipeline, run 
 
@@ -36,7 +42,7 @@ Current detailed pipline:
 
 Foe a compressed flowchart, run
 
-	$ snakemake --configfile config_local.json --rulegraph | dot -Tpng > figures/ruledag.png
+	$ snakemake --configfile config.json --rulegraph | dot -Tpng > ruledag.png
 
 Current detailed pipline:
 
