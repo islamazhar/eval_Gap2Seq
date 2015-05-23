@@ -311,7 +311,7 @@ rule Gap2Seq:
             stderr= config["OUTBASE"]+"{dataset}/GAP2SEQ_{assembler}.stderr"
     log: config["OUTBASE"]+"{dataset}/GAP2SEQ.log"
     params: 
-        runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["gap2seq_time"],
+        runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAP2SEQ_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
