@@ -315,7 +315,7 @@ rule Gap2Seq:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-        jobname = "{dataset}_{contamine}_{assembler}"+"_GAP2SEQ",
+        jobname = "{dataset}_{assembler}"+"_GAP2SEQ",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
         mail_type = config["SBATCH"]["MAIL_TYPE"]
@@ -336,7 +336,7 @@ rule GapCloser:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPCLOSER",
+        jobname = "{dataset}_{assembler}"+"_GAPCLOSER",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
         mail_type = config["SBATCH"]["MAIL_TYPE"]
@@ -357,7 +357,7 @@ rule GapFiller_bwa:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPFILLER_BWA",
+        jobname = "{dataset}_{assembler}"+"_GAPFILLER_BWA",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
         mail_type = config["SBATCH"]["MAIL_TYPE"]
@@ -380,7 +380,7 @@ rule GapFiller_bowtie:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-        jobname = "{dataset}_{contamine}_{assembler}"+"_GAPFILLER_BOWTIE",
+        jobname = "{dataset}_{assembler}"+"_GAPFILLER_BOWTIE",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
         mail_type = config["SBATCH"]["MAIL_TYPE"]
