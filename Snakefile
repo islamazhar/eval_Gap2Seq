@@ -313,8 +313,8 @@ rule Gap2Seq:
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAP2SEQ_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
-        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
-        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["n"],
         jobname = "{dataset}_{assembler}"+"_GAP2SEQ",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
@@ -334,8 +334,8 @@ rule GapCloser:
     params: 
         runtime = lambda wildcards: config["SBATCH"][wildcards.dataset]["GAPCLOSER_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["memsize"],
-        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
-        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["n"],
         jobname = "{dataset}_{assembler}"+"_GAPCLOSER",
         account = config["SBATCH"]["ACCOUNT"],
         mail = config["SBATCH"]["MAIL"],
@@ -364,10 +364,10 @@ rule GapFiller_bwa:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAPFILLER_BWA_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bwa_{dataset}_{assembler} > {stdout} 2> {output.stderr} ")
+        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bwa_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
-        shell("mv bwa_{dataset}_{assembler}/bwa_{dataset}_{assembler}.gapfilled.final.fa {output.fasta}")
-        shell("rm -r bwa_{dataset}_{assembler}")
+        shell("mv bwa_{wildcards.dataset}_{wildcards.assembler}/bwa_{wildcards.dataset}_{wildcards.assembler}.gapfilled.final.fa {output.fasta}")
+        shell("rm -r bwa_{wildcards.dataset}_{wildcards.assembler}")
 
 rule GapFiller_bowtie:
     input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
@@ -387,10 +387,10 @@ rule GapFiller_bowtie:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAPFILLER_BOWTIE_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bowtie_{dataset}_{assembler} > {stdout} 2> {output.stderr} ")
+        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bowtie_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
-        shell("mv bowtie_{dataset}_{assembler}/bowtie_{dataset}_{assembler}.gapfilled.final.fa {output.fasta}")
-        shell("rm -r bowtie_{dataset}_{assembler}")
+        shell("mv bowtie_{wildcards.dataset}_{wildcards.assembler}/bowtie_{wildcards.dataset}_{wildcards.assembler}.gapfilled.final.fa {output.fasta}")
+        shell("rm -r bowtie_{wildcards.dataset}_{wildcards.assembler}")
 
 rule ORIGINAL:
     input:  scaffolds = lambda wildcards: config[wildcards.dataset][wildcards.assembler]["SCAFFOLDS"],
