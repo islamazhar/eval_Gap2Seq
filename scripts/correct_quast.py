@@ -139,10 +139,10 @@ def is_local_middle(lines,i,N):
 
 		scaf_coordinate_diff =  min( abs(left_scaf_coords[0]- right_scaffold_coords[1]) , 
 										abs(left_scaf_coords[1]- right_scaffold_coords[0]) )
-		print 'HHHHH:',genome_coordinate_diff, scaf_coordinate_diff, tot_len_almt_j
+		#print 'HHHHH:',genome_coordinate_diff, scaf_coordinate_diff, tot_len_almt_j
 		local_error_seq_length = abs(genome_coordinate_diff - scaf_coordinate_diff)
 		if  local_error_seq_length <= N and genome_coordinate_diff <= N and tot_len_almt_j <= N:
-			print 'local middle', tot_len_almt_j
+			#print 'local middle', tot_len_almt_j
 			incorrect_seq = max(local_error_seq_length, tot_len_almt_j)
 			return tot_corrected_extensive_errors, incorrect_seq, i+j
 
@@ -158,7 +158,7 @@ def is_local_middle(lines,i,N):
 	# until the end of the scaffold. Of course, it needs to be <= Nbp in order to be reported.
 	if tot_len_almt_j <= N :
 		incorrect_seq =  tot_len_almt_j
-		print 'several local end errors', tot_len_almt_j
+		#print 'several local end errors', tot_len_almt_j
 		return tot_corrected_extensive_errors, incorrect_seq, i+j		
 	else:
 		return  False, 0, i+j
@@ -167,7 +167,7 @@ def is_local_end(lines,i,N):
 	j = 1
 	tot_len_almt_j = max( map(lambda x: int(x), lines[i+j].split('|')[2].strip().split(' ')))
 	if tot_len_almt_j <= N:
-		print 'local end:', tot_len_almt_j
+		#print 'local end:', tot_len_almt_j
 		return 1, tot_len_almt_j, i+j
 	else:
 		return False, 0, i+j
@@ -177,7 +177,7 @@ def is_local_beginning(lines,i,N):
 	j = 1
 	tot_len_almt_j = max( map(lambda x: int(x), lines[i-1].split('|')[2].strip().split(' ')))
 	if tot_len_almt_j <= N:
-		print 'local beginning:', tot_len_almt_j
+		#print 'local beginning:', tot_len_almt_j
 		return 1, tot_len_almt_j, i+j
 	else:
 		return False, 0, i+j
@@ -188,7 +188,7 @@ def is_local_2_aligmnets(lines,i,N):
 	tot_len_almt_2 = max( map(lambda x: int(x), lines[i+j].split('|')[2].strip().split(' ')))
 	misassm_length = min(tot_len_almt_1,tot_len_almt_2)
 	if misassm_length <= N:
-		print 'local one out of two almnts:', misassm_length
+		#print 'local one out of two almnts:', misassm_length
 		return 1, misassm_length, i+j
 	else:
 		return False, 0, i+j
@@ -227,11 +227,11 @@ def get_sum_large_misassemblies(infile, N):
 
 			# misassembly somewhere in middle of contig/scaffold
 			else:
-				print 'lolz'
+				#print 'lolz'
 		 		extensive_missassembly_corrected, mis_assm_length, i = is_local_middle(lines,i,N)
 
 		 	if extensive_missassembly_corrected:
-		 		print 'NOOOO', mis_assm_length
+		 		#print 'NOOOO', mis_assm_length
 		 		tot_errors_corrected += extensive_missassembly_corrected
 		 		tot_sum_extensive_to_local += mis_assm_length
 
@@ -270,8 +270,8 @@ def parse_quast_report(infile):
 	out_string = ''
 	lines = map( lambda line: line.strip().split(), infile)
 	filtered_lines=[]
-	print lines[9],lines[10]	
-	print int(lines[9][2])/float(lines[10][2])
+	#print lines[9],lines[10]	
+	#print int(lines[9][2])/float(lines[10][2])
 	if int(lines[9][2])/float(lines[10][2]) >= 0.75:
 		unaligned_row = 26
 		NGA_row = 34
@@ -282,8 +282,8 @@ def parse_quast_report(infile):
 	for i,line in enumerate(lines):
 		content = filter(lambda x: x != '',line )
 		if unaligned_row == i:
-			print line
-			unaligned_len = int(content[1])
+			#print line
+			unaligned_len = int(content[2])
 		if NGA_row == i:
 			NGA50 = int(content[1])
 	return unaligned_len, NGA50
@@ -342,8 +342,8 @@ def get_gapstats(fasta_file):
 
 
 def main(args):
-	if not os.path.exists(args.outpath):
-		os.mkdir(args.outpath)
+	#if not os.path.exists(args.outpath):
+	#	os.mkdir(args.outpath)
 
 	err = False
 	try:
@@ -381,7 +381,7 @@ def main(args):
 		misassemblies = tot_extensive_before - nr_extensive_corrected
 		erroneous_length =  tot_length_mismatch + tot_length_indel + tot_length_local + tot_extensive_reduced
 
-		quality_string = '{0}\t{1},{2},{3},{4},{5},{6}'.format(misassemblies, erroneous_length, unaligned_length, NGA50, number_of_gaps, total_gap_length )
+		quality_string = '{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(misassemblies, erroneous_length, unaligned_length, NGA50, number_of_gaps, total_gap_length )
 		print quality_string
 
 		# print 'Number of "extensive errors" reduced from misassemblies to local misassemblies: {0}\nTotal extensive to local error length: {1}'.format(nr_extensive_corrected,tot_extensive_reduced)
@@ -415,7 +415,7 @@ if __name__ == '__main__':
 	parser.add_argument('quast_misassemblies', type=str, help='A quast contig_reports/missassemblies.txt file')
 	parser.add_argument('quast_report', type=str, help='A quast report.txt file.')
 	parser.add_argument('scaffolds', type=str, help='A fasta file with scaffolds.')	
-	parser.add_argument('outpath', type=str, help='Folder for output.')
+	#parser.add_argument('outpath', type=str, help='Folder for output.')
 
 	parser.add_argument('--N', dest='N',type=int, default=1000, help='How large a large misassembly should be regarded as.')
 	parser.add_argument('--skip_large_misassemblies', dest='skip_large_misassemblies' ,action='store_true', help='Skip calc length of large misassemblies.')

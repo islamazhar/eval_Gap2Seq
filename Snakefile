@@ -473,7 +473,7 @@ rule QUAST_CORRECTION:
           quast_stdout=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.stdout",
           scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa"
 
-   output: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
+   output: csv_format=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
 
    params: 
        runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
@@ -489,11 +489,13 @@ rule QUAST_CORRECTION:
        shell("{env}")
        python = config["PYTHON2"]       
        path=config["scripts_path"]
-       result = list(shell(" {python} {path}correct_quast.py --N 4000 {input.quast_stdout} {input.quast_misassm_file} {input.quast_report} {input.scaffolds}",iterable=True)) 
-       print result
+       result = list(shell(" {python} {path}correct_quast.py --N 4000 {input.quast_stdout} {input.quast_misassm_file} {input.quast_report} {input.scaffolds}",iterable=True))[0] 
+       print(result)
+       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(wildcards.assembler, wildcards.gapfiller, *result.split() ), file=open(output.csv_format, 'w'))
+
        #misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
        #e_size = get_esize(input.scaffolds)
-       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
+       #print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
 
 
 

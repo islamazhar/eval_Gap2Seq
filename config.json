@@ -1,5 +1,5 @@
 { 
-	"scripts_paths" : "/home/kris/git_repos/eval_Gap2Seq/scripts/",
+	"scripts_path" : "/home/kris/git_repos/eval_Gap2Seq/scripts/",
     "quast_rules" : {
         "path" : "/home/kris/source/quast-2.3/",
         "min_contig" : "200"
