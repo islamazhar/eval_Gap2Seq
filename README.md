@@ -26,9 +26,12 @@ to run the full pipeline (build all targets). This is probably not practical. Th
     $ snakemake run_gapfillers
 
 To isolate for building only the filled scaffold files for e.g. staph, remove "rhodo" and "hs14" from the
+
      "DATASETS" : [ "staph", "rhodo", "hs14"],
 
-line in the config.json file.
+line in the config.json file. To rerun a specific "rule" e.g. gap2seq, GapFiller_bwa or QUAST, run
+
+    $ snakemake -R QUAST 
 
 
 To see a flowchart of the pipeline, run 

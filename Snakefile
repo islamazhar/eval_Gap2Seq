@@ -409,15 +409,15 @@ rule ORIGINAL:
         shell("{time} cp {input.scaffolds} {output.fasta} ")
 
 rule QUAST:
-   input: scaffolds=config["OUTBASE"]+"{experiment}/{contamine}/{scaffolder}_{assembler}.fa",
+   input: scaffolds=config["OUTBASE"]+"{experiment}/{scaffolder}_{assembler}.fa",
             ref = lambda wildcards: config[wildcards.dataset]["REF"]
-   output: nice_format=config["OUTBASE"]+"{experiment}/{contamine}/quast_{scaffolder}_{assembler}.csv" 
+   output: nice_format=config["OUTBASE"]+"{experiment}/quast_{scaffolder}_{assembler}.csv" 
    params: 
        runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-       jobname="quast_{experiment}_{contamine}_{scaffolder}",
+       jobname="quast_{experiment}_{scaffolder}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
