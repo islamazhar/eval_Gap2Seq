@@ -435,7 +435,7 @@ rule ORIGINAL:
 
 rule QUAST:
    input: scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa",
-            ref = lambda wildcards: config[wildcards.dataset]["REF"]
+          ref = lambda wildcards: config[wildcards.dataset]["REF"]
    output: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.report.txt",
            quast_misassm_file=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.misassemblies.txt",
            quast_stdout=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.stdout"
@@ -469,7 +469,7 @@ rule QUAST:
 
 rule QUAST_CORRECTION:
    input: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.report.txt",
-           quast_misassm_file=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.misassemblies.txt",
+          quast_misassm_file=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.misassemblies.txt",
           quast_stdout=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.stdout",
           scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa"
 
