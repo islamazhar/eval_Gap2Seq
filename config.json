@@ -74,7 +74,7 @@
                     "GAPFILLER_BOWTIE_CONFIG" : "tool_configs/GapFiller_bowtie/Staphylococcus_aureus.config",
 
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],
-                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/rhodo/",
+                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/staph/",
                 "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/genome.fasta"
             },
 
@@ -108,50 +108,36 @@
                 "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Data.original/genome.fasta"
             },
 
-    "hs14" : { "0" :  { "ABySS" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS/genome.scf.fasta",
-                            "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/ABySS_mapped.bam"
+    "hs14" : { "ABySS" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS/genome.scf.fasta"
                             }, 
-                        "ABySS2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS2/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/ABySS2_mapped.bam"
+                        "ABySS2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/ABySS2/genome.scf.fasta"
                                     }, 
-                        "Bambus2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Bambus2/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Bambus2_mapped.bam"
+                        "Bambus2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Bambus2/genome.scf.fasta"
                                     }, 
-                        "Allpaths-LG" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Allpaths-LG/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Allpaths-LG_mapped.bam"
+                        "Allpaths-LG" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Allpaths-LG/genome.scf.fasta"
                                     },
-                        "MSR-CA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/MSR-CA/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/MSR-CA_mapped.bam"
+                        "MSR-CA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/MSR-CA/genome.scf.fasta"
                                     },
-                        "CABOG" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/CABOG/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/CABOG_mapped.bam"
+                        "CABOG" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/CABOG/genome.scf.fasta"
                                     },
-                        "SGA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SGA/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/SGA_mapped.bam"
+                        "SGA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SGA/genome.scf.fasta"
                                     },
-                        "SOAPdenovo" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SOAPdenovo/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/SOAPdenovo_mapped.bam"
+                        "SOAPdenovo" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/SOAPdenovo/genome.scf.fasta"
                                     },
-                        "Velvet" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Velvet/genome.scf.fasta",
-                                    "BAM" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/Velvet_mapped.bam"
+                        "Velvet" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Assembly/Velvet/genome.scf.fasta"
                                     },
-                        "READ1" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/frag1.fastq",
-                        "READ2" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/0/frag2.fastq"
-                        },
+                        
+			"MERGED_READS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Data.original/frag_merged.fastq.gz",
+                    "GAPCLOSER_CONFIG" : "tool_configs/GapCloser/Hg_chr14.config",
+                    "GAPFILLER_BWA_CONFIG" : "tool_configs/GapFiller_bwa/Hg_chr14.config",
+                    "GAPFILLER_BOWTIE_CONFIG" : "tool_configs/GapFiller_bowtie/Hg_chr14.config",          
 
 
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "CABOG", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],
-                "READ_LENGTH" : "101",
-                "ORIENTATION" : "fr",
-                "BESST_ORIENTATION" : "rf",
-                "ISIZE" : "2700",
-                "STDDEV" : "355",
-                "ORIGINAL_READ1" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Data.original/shortjump_1.fastq.gz",
-                "ORIGINAL_READ2" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Data.original/shortjump_2.fastq.gz",
-                "OUTBASE" : "/proj/b2013169/private/data/besst_pe_cont/output/hs14/",
-                "INBASE" : "/proj/b2013169/private/data/besst_pe_cont/data/hs14/",
+                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/hs14/",
                 "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Hg_chr14/Data.original/genome.fasta"
-            },
+	},
+          
 
 	"GAPFILLERS" :["GAP2SEQ", "GAPFILLER_BWA", "GAPFILLER_BOWTIE", "GAPCLOSER"],
 	"LOAD_PYTHON_ENV" : "pyenv global system 3.4.1 2.7.6",
