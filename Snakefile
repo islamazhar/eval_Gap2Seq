@@ -1,6 +1,6 @@
 """
 Submit this job on uppmax as:
-    snakemake --debug --keep-going -j 999 --cluster "sbatch -A {params.account} -p {params.partition} -n {params.n}  -t {params.runtime} -C {params.memsize} -J {params.jobname} --mail-type={params.mail_type} --mail-user={params.mail}"
+    snakemake --debug --keep-going -j 999 --wait-for-files 30 --cluster "sbatch -A {params.account} -p {params.partition} -n {params.n}  -t {params.runtime} -C {params.memsize} -J {params.jobname} --mail-type={params.mail_type} --mail-user={params.mail}"
 """
 shell.prefix("set -o pipefail; ")
 configfile: "config.json"
