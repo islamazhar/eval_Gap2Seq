@@ -569,7 +569,7 @@ rule quality_latex_table:
         table_file = open(output.table, 'w')
         print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7}  \\\ \hline".format('assembly', 'tool', 'misassmblies', 'erroneous-length', 'unaligned-length', 'NGA50', 'number of gaps', 'tot gap length '), file=table_file)
 
-        prev_scaffolder = -1
+        prev_gapfiller = -1
 
         for file_ in input.files:
             line=open(file_,'r').readlines()[0]  
