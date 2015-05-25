@@ -48,3 +48,12 @@ To see a flowchart of the pipeline, run
     $ snakemake --dag | dot -Tpdf > dag.pdf
 
 Dry run can be performed by adding the parameter -n.
+
+### On a cluster with slurm job scheduler.
+
+The config.json file supports submitting several jobs on different cores/nodes simultaneously through the slurm job scheduler. Run
+     snakemake --debug --keep-going -j 999 --latency-wait 30 --cluster "sbatch -A {params.account} -p {params.partition} -n {params.n}  -t {params.runtime} -C {params.memsize} -J {params.jobname} --mail-type={params.mail_type} --mail-user={params.mail}" run_scaffolders
+
+To create one job for each separate run. Snakemake also supprts the job schedulrer "qsub" see 
+[snakemake documentation](https://bitbucket.org/johanneskoester/snakemake/wiki/Documentation).
+
