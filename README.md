@@ -11,6 +11,18 @@ Then run
 
 Now you have python 3.4.1 available through pyenv. Now install snakemake through pip3 or clone repository (see [install_snakemake](https://bitbucket.org/johanneskoester/snakemake/wiki/Documentation#markdown-header-installation))
 
+
+### Preliminaries
+
+We assume that you have Gap2Seq, GapCloser and GapFiller installed and in path (callable in terminal). Gap2Seq and GapCloser are binaries and can be naturally placed in any folder that you have in SYSPATH. For GapFiller, e.g. use the following code and name the script GapFiller and place it in you path 
+     
+     #!/bin/bash
+     for arg in "$@"; do
+     args="$args $arg"
+     done
+     
+     perl /home/kris/source/GapFiller_v1-10_linux-x86_64/./GapFiller.pl $args
+
 ### Running snakemake
 
 In the current shell, run
@@ -19,17 +31,14 @@ In the current shell, run
 
 to activate python 3 in the current shell. Now run,
 
-    $ snakemake
-
-to run the full pipeline (build all targets). This is probably not practical. There are two sub targets: run_gapfillers and eval_gapfillers. To only create the filled scaffolds fasta files run
-
     $ snakemake run_gapfillers
 
-To isolate for building only the filled scaffold files for e.g. staph, remove "rhodo" and "hs14" from the
+to build the gapfilled fasta files. This will set of experiments for all tools specified in the config.json file. To run on a subset of tools or datasets, change the config file lines specifying this, i.e.
 
      "DATASETS" : [ "staph", "rhodo", "hs14"],
+     "GAPFILLERS" :["GAP2SEQ", "GAPFILLER_BWA", "GAPFILLER_BOWTIE", "GAPCLOSER"],
 
-line in the config.json file. To rerun a specific "rule" e.g. gap2seq, GapFiller_bwa or QUAST, run
+To rerun a specific "rule" e.g. gap2seq, GapFiller_bwa or QUAST, run
 
     $ snakemake -R QUAST 
 
@@ -38,15 +47,4 @@ To see a flowchart of the pipeline, run
 
     $ snakemake --dag | dot -Tpdf > dag.pdf
 
-
-Current detailed pipline:
-
-![Example](figures/dag.png)
-
-Foe a compressed flowchart, run
-
-	$ snakemake --configfile config.json --rulegraph | dot -Tpng > ruledag.png
-
-Current detailed pipline:
-
-![Example](figures/ruledag.png)
+Dry run can be performed by adding the parameter -n.
