@@ -14,40 +14,6 @@ configfile: "config.json"
 import re
 import os
 
-def parse_quast(quast_report):
-    lines = open(quast_report, 'r').readlines()
-    for line in lines:
-        if re.match(r"Total length \(\>\= 0 bp\)",line):
-            assembly_size = int(line.strip().split()[6])
-        if re.match(r"NG50",line):
-            NG50 = int(line.strip().split()[2])
-        if re.match(r"NGA50",line):
-            NGA50 = int(line.strip().split()[2]) 
-        if re.match(r"# misassemblies",line):
-            large_misassm = int(line.strip().split()[3]) 
-        if re.match(r"# local misassemblies",line):
-            local_misassm = int(line.strip().split()[4]) 
-        if re.match(r"ESIZE_ASSEMBLY",line):
-            ESIZE_ASSEMBLY = float(line.strip().split()[2])
-        if re.match(r"ESIZE_GENOME",line):
-            ESIZE_GENOME = float(line.strip().split()[2]) 
-        if re.match(r"CORR_ESIZE_ASSEMBLY",line):
-            CORR_ESIZE_ASSEMBLY = float(line.strip().split()[2])
-        if re.match(r"CORR_ESIZE_GENOME",line):
-            CORR_ESIZE_GENOME = float(line.strip().split()[2]) 
-
-    try:
-        NGA50
-    except UnboundLocalError:
-        NGA50 = "."
-    try:
-        NG50
-    except UnboundLocalError:
-        NG50 = "."
-
-    misassmblies = large_misassm #+ local_misassm
-    return(misassmblies, NG50, NGA50, assembly_size, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME)
-
 def  parse_gnu_time(stderr_file):
     lines = open(stderr_file, 'r').readlines()
 
@@ -220,8 +186,8 @@ def latex_tables(wildcards):
   input_= []
 
   for dataset in config["DATASETS"]:
-    input_.append(config["OUTBASE"]+"performance_table_{0}.tex".format(dataset))
-    input_.append(config["OUTBASE"]+"quality_table_{0}.tex".format(dataset))
+    input_.append(config["OUTBASE"]+"latex_tables/performance_table_{0}.tex".format(dataset))
+    input_.append(config["OUTBASE"]+"latex_tables/quality_table_{0}.tex".format(dataset))
 
       # if experiment == "rhodo":
       #   input_.append(config["OUTBASE"]+"performance_table_{0}_{1}.tex".format(experiment, contamine))
@@ -257,19 +223,6 @@ rule all:
         mail=config["SBATCH"]["MAIL"],
         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
-# rule test:
-#     input: config["OUTBASE"]+"quality_table_sim_30.tex",
-#            config["OUTBASE"]+"percentage_quality_table_sim_30.tex",
-#            expand(config["OUTBASE"]+"sim/30/quast_{scaffolder}_NA.csv",scaffolder=config["SCAFFOLDERS"])
-#     params: 
-#         runtime="15:00",
-#         memsize = "mem128GB",
-#         partition = "core",
-#         n = "1",
-#         jobname="all",
-#         account=config["SBATCH"]["ACCOUNT"],
-#         mail=config["SBATCH"]["MAIL"],
-#         mail_type=config["SBATCH"]["MAIL_TYPE"]
 
 rule eval_gapfillers:
     input:  eval_csv_files,
@@ -519,7 +472,7 @@ rule time_and_mem:
 
 rule performace_latex_table:
    input: files=performance_input
-   output: table=config["OUTBASE"]+"performance_table_{dataset}.tex"
+   output: table=config["OUTBASE"]+"latex_tables/performance_table_{dataset}.tex"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
@@ -602,7 +555,7 @@ rule performace_latex_table:
 
 rule quality_latex_table:
    input: files=quality_input 
-   output: table=config["OUTBASE"]+"quality_table_{dataset}.tex"
+   output: table=config["OUTBASE"]+"latex_tables/quality_table_{dataset}.tex"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
@@ -614,20 +567,19 @@ rule quality_latex_table:
        mail_type=config["SBATCH"]["MAIL_TYPE"]
    run:
         table_file = open(output.table, 'w')
-        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9}  \\\ \hline".format('assembly', 'tool', 'assm-size', 'NG50', 'misassm', 'NGA50', '$E_{assm}$', '$E_{genome}$', '$EA_{assm}$' , '$EA_{genome}$'), file=table_file)
+        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7}  \\\ \hline".format('assembly', 'tool', 'misassmblies', 'erroneous-length', 'unaligned-length', 'NGA50', 'number of gaps', 'tot gap length '), file=table_file)
 
         prev_scaffolder = -1
 
         for file_ in input.files:
             line=open(file_,'r').readlines()[0]  
             vals = line.strip().split()
-            #scaffolder = vals[2]
-            assembler, scaffolder, totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = vals
-            if prev_scaffolder == -1:
-                sum_values = ["TOTAL", scaffolder, 0, 0, 0, 0, 0, 0, 0, 0]
+            assembler, gapfiller, misassmblies, err_length, unaligned_length, NGA50, number_of_gaps, tot_gap_length = vals
+            if prev_gapfiller == -1:
+                sum_values = ["TOTAL", gapfiller, 0, 0, 0, 0, 0, 0]
                 completed_experiment_count = 0
 
-            if scaffolder != prev_scaffolder and prev_scaffolder != -1:
+            if gapfiller != prev_gapfiller and prev_gapfiller != -1:
                 average_values = list(sum_values)
                 average_values[0] = "AVERAGE"
                 for i, item in enumerate(sum_values): 
@@ -638,11 +590,11 @@ rule quality_latex_table:
                     except ValueError:
                         pass
 
-                print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9}  \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
-                print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9}  \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
+                print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7}  \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
+                print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7}  \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
 
-                assembler, scaffolder, totsize, NG50, misassm, NGA50, E_a, E_g, EA_a, EA_g = vals
-                sum_values = ["TOTAL", scaffolder, 0, 0, 0, 0, 0, 0, 0, 0]
+                assembler, gapfiller, misassmblies, err_length, unaligned_length, NGA50, number_of_gaps, tot_gap_length = vals
+                sum_values = ["TOTAL", gapfiller, 0, 0, 0, 0, 0, 0]
                 completed_experiment_count = 1
                 for i, item in enumerate(vals): 
                     try:
@@ -660,9 +612,9 @@ rule quality_latex_table:
                     except ValueError:
                         pass
 
-            prev_scaffolder = scaffolder
+            prev_gapfiller = gapfiller
 
-            print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9} \\\ ".format(*line.strip().split()), file=table_file)
+            print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} \\\ ".format(*line.strip().split()), file=table_file)
 
         average_values = list(sum_values)
         average_values[0] = "AVERAGE"
@@ -675,8 +627,8 @@ rule quality_latex_table:
             except ValueError:
                 pass
 
-        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9} \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
-        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} & {8} & {9} \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
+        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} \\\ \hline".format(*map(lambda x: x,sum_values)), file=table_file)
+        print("{0} & {1} & {2} & {3} & {4} & {5} & {6} & {7} \\\ \hline".format(*map(lambda x: x, average_values)), file=table_file)
 
 
 
