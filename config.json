@@ -17,7 +17,7 @@
                         "GAPFILLER_BWA_time" : "1:00:00",
                         "GAPFILLER_BOWTIE_time" : "1-00:00:00",
                         "GAPCLOSER_time" : "1-00:00:00",
-                        "quast_time" : "30:00",
+                        "quast_time" : "10:00",
                         "small_partition" : "core", 
                         "small_n" : "1",
                         "small_memsize" : "'mem128GB|mem256GB|mem512GB'"
@@ -29,7 +29,7 @@
                         "GAPFILLER_BWA_time" : "1:00:00",
                         "GAPFILLER_BOWTIE_time" : "1-00:00:00",
                         "GAPCLOSER_time" : "1-00:00:00",
-                        "quast_time" : "30:00",
+                        "quast_time" : "15:00",
                         "small_partition" : "core", 
                         "small_n" : "1",
                         "small_memsize" : "'mem128GB|mem256GB|mem512GB'"
@@ -42,7 +42,7 @@
                         "GAPFILLER_BWA_time" : "1-00:00:00",
                         "GAPFILLER_BOWTIE_time" : "1-00:00:00",
                         "GAPCLOSER_time" : "1-00:00:00",
-                        "quast_time" : "5:00:00",
+                        "quast_time" : "3:00:00",
                         "small_partition" : "core", 
                         "small_n" : "2",
                         "small_memsize" : "'mem128GB|mem256GB|mem512GB'"
