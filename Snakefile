@@ -409,15 +409,15 @@ rule ORIGINAL:
         shell("{time} cp {input.scaffolds} {output.fasta} ")
 
 rule QUAST:
-   input: scaffolds=config["OUTBASE"]+"{dataset}/{scaffolder}_{assembler}.fa",
+   input: scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa",
             ref = lambda wildcards: config[wildcards.dataset]["REF"]
-   output: nice_format=config["OUTBASE"]+"{dataset}/quast_{scaffolder}_{assembler}.csv" 
+   output: nice_format=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
    params: 
        runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-       jobname="quast_{dataset}_{scaffolder}",
+       jobname="quast_{dataset}_{gapfiller}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
@@ -428,17 +428,17 @@ rule QUAST:
        #out=config['OUTBASE']
        path=config["quast_rules"]["path"]
        min_contig =  config["quast_rules"]["min_contig"]
-       outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.scaffolder, wildcards.assembler)
+       outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.gapfiller, wildcards.assembler)
        shell(" {python} {path}quast.py -R  {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
        misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
        #e_size = get_esize(input.scaffolds)
-       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.scaffolder, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
+       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
 
 
 
 rule time_and_mem:
-   input:  stderr=config["OUTBASE"]+"{dataset}/{scaffolder}_{assembler}.stderr"
-   output: outfile=config["OUTBASE"]+"{dataset}/{scaffolder}_{assembler}_time_and_mem.txt"
+   input:  stderr=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.stderr"
+   output: outfile=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}_time_and_mem.txt"
    params: 
        runtime="15:00",
        memsize = "'mem128GB|mem256GB|mem512GB'",
@@ -450,7 +450,7 @@ rule time_and_mem:
        mail_type=config["SBATCH"]["MAIL_TYPE"]
    run:
        usertime, wallclocktime, memory_gb =  parse_gnu_time(input.stderr)
-       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}".format(wildcards.dataset, wildcards.assembler, wildcards.scaffolder, usertime, wallclocktime, memory_gb), file=open(output.outfile, 'w') )
+       print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}".format(wildcards.dataset, wildcards.assembler, wildcards.gapfiller, usertime, wallclocktime, memory_gb), file=open(output.outfile, 'w') )
        
 
 rule performace_latex_table:
@@ -478,7 +478,7 @@ rule performace_latex_table:
         for file_ in input.files:
             line=open(file_,'r').readlines()[0]  
             vals = line.strip().split()
-            #scaffolder = vals[2]
+            #gapfiller = vals[2]
             experiment, assembler, scaffolder, user_time, wct, peak_mem = vals
             if prev_scaffolder == -1:
                 sum_values = [experiment, "TOTAL", scaffolder, 0, 0, 0]
