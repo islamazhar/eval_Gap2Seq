@@ -1,9 +1,9 @@
 # eval_Gap2Seq
 
-Evaluates gapfilling programs. This evaluation pipeline uses [snakemake](https://bitbucket.org/johanneskoester/snakemake/wiki/Home), that requires python 3.x. Since most systems default to python2.X virtualenvs is the most convenient solution. 
+Evaluates gapfilling programs. This evaluation pipeline uses [snakemake](https://bitbucket.org/johanneskoester/snakemake/wiki/Home), that requires python 3.x. Since most systems default to python2.X virtualenvs is the most convenient solution. To run this evaluation, we need both python2.x and python3.x. 
 
 ### Installation
-Install [pyenv](https://github.com/yyuu/pyenv) on uppmax (reccomended by UPPMAX as the default python virtual envirionment anyway) through the automatic installer [pyenv-installer](https://github.com/yyuu/pyenv-installer).
+Install [pyenv](https://github.com/yyuu/pyenv) through the automatic installer [pyenv-installer](https://github.com/yyuu/pyenv-installer). This is just to be able to have both puthon 2 and 3 available.
 
 Then run 
 
