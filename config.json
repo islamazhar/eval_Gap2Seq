@@ -48,10 +48,7 @@
                         }
     },
 
-    "DATASETS" : [ "staph"],
-
-
-
+    "DATASETS" : [ "staph", "rhodo", "hs14"],
 
 
     "staph" : { "ABySS" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS/genome.scf.fasta"
