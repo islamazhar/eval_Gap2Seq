@@ -49,6 +49,10 @@ To see a flowchart of the pipeline, run
 
 Dry run can be performed by adding the parameter -n.
 
+Current pipeline:
+
+![Example](figures/ruledag.png)
+
 ### On a cluster with slurm job scheduler.
 
 The config.json file supports submitting several jobs on different cores/nodes simultaneously through the slurm job scheduler. Run
@@ -56,4 +60,6 @@ The config.json file supports submitting several jobs on different cores/nodes s
 
 To create one job for each separate run. Snakemake also supprts the job schedulrer "qsub" see 
 [snakemake documentation](https://bitbucket.org/johanneskoester/snakemake/wiki/Documentation).
+
+
 
