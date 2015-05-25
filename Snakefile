@@ -1,6 +1,6 @@
 """
 Submit this job on uppmax as:
-    snakemake --debug --keep-going -j 999 --wait-for-files 30 --cluster "sbatch -A {params.account} -p {params.partition} -n {params.n}  -t {params.runtime} -C {params.memsize} -J {params.jobname} --mail-type={params.mail_type} --mail-user={params.mail}"
+    snakemake --debug --keep-going -j 999 --latency-wait 30 --cluster "sbatch -A {params.account} -p {params.partition} -n {params.n}  -t {params.runtime} -C {params.memsize} -J {params.jobname} --mail-type={params.mail_type} --mail-user={params.mail}"
 """
 shell.prefix("set -o pipefail; ")
 configfile: "config.json"
@@ -408,10 +408,37 @@ rule ORIGINAL:
         time = config["GNUTIME"]
         shell("{time} cp {input.scaffolds} {output.fasta} ")
 
+# rule QUAST:
+#    input: scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa",
+#             ref = lambda wildcards: config[wildcards.dataset]["REF"]
+#    output: nice_format=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
+#    params: 
+#        runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
+#         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
+#         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+#         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+#        jobname="quast_{dataset}_{gapfiller}",
+#        account=config["SBATCH"]["ACCOUNT"],
+#        mail=config["SBATCH"]["MAIL"],
+#        mail_type=config["SBATCH"]["MAIL_TYPE"]
+#    run:
+#        env = config["LOAD_PYTHON_ENV"]
+#        shell("{env}")
+#        python = config["PYTHON2"]      
+#        path=config["quast_rules"]["path"]
+#        min_contig =  config["quast_rules"]["min_contig"]
+#        outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.gapfiller, wildcards.assembler)
+#        shell(" {python} {path}quast.py --strict-NA -R {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
+#        misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
+#        #e_size = get_esize(input.scaffolds)
+#        print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
+
 rule QUAST:
    input: scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa",
             ref = lambda wildcards: config[wildcards.dataset]["REF"]
-   output: nice_format=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
+   output: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.report.txt",
+           quast_misassm_file=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.misassemblies.txt",
+           quast_stdout=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.stdout"
    params: 
        runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
@@ -424,15 +451,50 @@ rule QUAST:
    run:
        env = config["LOAD_PYTHON_ENV"]
        shell("{env}")
-       python = config["PYTHON2"]
-       #out=config['OUTBASE']
+       python = config["PYTHON2"]       
        path=config["quast_rules"]["path"]
        min_contig =  config["quast_rules"]["min_contig"]
        outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.gapfiller, wildcards.assembler)
-       shell(" {python} {path}quast.py -R  {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
-       misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
+       shell(" {python} {path}quast.py --strict-NA -R {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
+       
+       # only saving the two relevant files from QUAST to out output folder
+       # these will be used to get the results in the QUAST_CORRECTION rule
+       shell("mv {outpath}contigs_reports/misassemblies_report.txt {output.quast_misassm_file} ")
+       shell("mv {outpath}report.txt {output.quast_report}")
+       shell("mv {outpath}contigs_reports/contigs_report_*.stdout  {output.quast_stdout}")
+
+
+
+
+
+rule QUAST_CORRECTION:
+   input: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.report.txt",
+           quast_misassm_file=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.misassemblies.txt",
+          quast_stdout=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.stdout",
+          scaffolds=config["OUTBASE"]+"{dataset}/{gapfiller}_{assembler}.fa"
+
+   output: quast_report=config["OUTBASE"]+"{dataset}/quast_{gapfiller}_{assembler}.csv" 
+
+   params: 
+       runtime=lambda wildcards: config["SBATCH"][wildcards.dataset]["quast_time"],
+        memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
+        partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
+        n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
+       jobname="quast_{dataset}_{gapfiller}",
+       account=config["SBATCH"]["ACCOUNT"],
+       mail=config["SBATCH"]["MAIL"],
+       mail_type=config["SBATCH"]["MAIL_TYPE"]
+   run:
+       env = config["LOAD_PYTHON_ENV"]
+       shell("{env}")
+       python = config["PYTHON2"]       
+       path=config["scripts_path"]
+       shell(" {python} {path}correct_quast.py --N 4000 {input.quast_stdout} {input.quast_misassm_file} {input.quast_report} {input.scaffolds}") 
+
+       #misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
        #e_size = get_esize(input.scaffolds)
        print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
+
 
 
 

@@ -265,23 +265,6 @@ def count_extensive_misassemblies(infile):
 	return len(re.findall('Extensive misassembly (.)+', l))
 
 
-def parse_gnu_time(infile):
-	performance_string = ''
-	for l in infile:
-		#print l
-		usertime =  re.search('User time \(seconds\): [\d.]+', l)
-		wct= re.search('Elapsed \(wall clock\) time \(h:mm:ss or m:ss\): [\d.:]+', l) 
-		mem = re.search('Maximum resident set size \(kbytes\): [\d.:]+', l) 
-		if usertime:
-			performance_string += usertime.group().split(':')[1].strip()
-		if wct:
-			performance_string += ','+wct.group().split()[7]
-		if mem:
-			mem_tmp = int(mem.group().split()[5])
-			memory = mem_tmp / 4 
-			performance_string += ','+str(memory)
-
-	return performance_string
 
 def parse_quast_report(infile):
 	out_string = ''
@@ -306,6 +289,58 @@ def parse_quast_report(infile):
 	return unaligned_len, NGA50
 
 
+
+import re
+import argparse
+import sys
+
+def fasta_iter(fasta_file):
+    """
+        Reads a fasta file into memory.
+
+        Arguments:
+        fasta_file - A python file object. The file should be in 
+        fasta format.
+
+        Returns:
+            an iterator over accession, sequence.
+
+    """  
+
+    k = 0
+    temp = []
+    accession = ''
+    for line in fasta_file:
+        if line[0] == '>' and k == 0:
+            accession = line[1:].strip().split()[0]
+            k += 1
+        elif line[0] == '>':
+            temp = ''.join(temp)
+            yield accession, temp
+            temp = []
+            accession = line[1:].strip().split()[0]
+        else:
+            temp.append(line.strip())
+    
+    temp = ''.join(temp)
+    yield accession, temp
+
+def get_gapstats(fasta_file):
+	nr_gaps = 0
+	tot_gap_length = 0
+	gap_distr = []
+	for acc, seq in fasta_iter(fasta_file):
+		gap_list = re.findall('[Nn]+', seq)
+		gap_lengths = map(lambda x: len(x), gap_list)
+		gap_distr += gap_lengths
+		tot_gap_length += sum(gap_lengths)
+		nr_gaps += len(gap_lengths)
+
+	#print 'nr_gaps\ttot_gap_length'
+	#print '{0},{1}'.format(nr_gaps,tot_gap_length)
+	return nr_gaps, tot_gap_length
+
+
 def main(args):
 	if not os.path.exists(args.outpath):
 		os.mkdir(args.outpath)
@@ -314,73 +349,72 @@ def main(args):
 	try:
 		open(args.quast_stdout,'r')
 	except IOError:
-		print '{0} does not exist. skipping...'.format(args.quast_stdout)
+		#print '{0} does not exist. skipping...'.format(args.quast_stdout)
 		err=True
-		#print >> open(os.path.join(args.outpath,'gap_filling_quality_eval.csv'),'w' ), '-,-,-,-,-,-'
 	try:
 		open(args.quast_misassemblies,'r')
 	except IOError:
-		print '{0} does not exist. skipping...'.format(args.quast_misassemblies)
+		#print '{0} does not exist. skipping...'.format(args.quast_misassemblies)
 		err=True
 	try:
 		open(args.quast_report,'r')
 	except IOError:
-		print '{0} does not exist. skipping...'.format(args.quast_report)
+		#print '{0} does not exist. skipping...'.format(args.quast_report)
 		err=True
 
-
+	try:
+		open(args.scaffolds,'r')
+	except IOError:
+		#sys.stderr.write('{0} does not exist. skipping...\n'.format(args.scaffolds))
+		#print '{0},{1}'.format('-','-')
+		err=True
 
 	if not err:
 		tot_extensive_reduced, nr_extensive_corrected = get_sum_large_misassemblies(open(args.quast_stdout,'r'),args.N)
 		tot_length_local, nr_local = get_sum_local_misassemblies(open(args.quast_stdout,'r'))
 		tot_length_indel = get_sum_indels(open(args.quast_misassemblies,'r'))
 		tot_length_mismatch = get_mismatches(open(args.quast_misassemblies,'r'))
-
 		tot_extensive_before = count_extensive_misassemblies(open(args.quast_stdout,'r'))
+		unaligned_length, NGA50 = parse_quast_report(open(args.quast_report,'r'))
+		number_of_gaps, total_gap_length = get_gapstats(open(args.scaffolds, 'r'))
 
-		unaligned_len, NGA50 = parse_quast_report(open(args.quast_report,'r'))
+		misassemblies = tot_extensive_before - nr_extensive_corrected
+		erroneous_length =  tot_length_mismatch + tot_length_indel + tot_length_local + tot_extensive_reduced
 
-		print 'Number of "extensive errors" reduced from misassemblies to local misassemblies: {0}\nTotal extensive to local error length: {1}'.format(nr_extensive_corrected,tot_extensive_reduced)
-		print 'Total misassemblies before {0}. Total misassemblies after {1}'.format(tot_extensive_before, tot_extensive_before - nr_extensive_corrected)
-		print 'Local errors length: {0}\nTotal local errors found: {1}'.format(tot_length_local, nr_local)
-		print 'Total indel length: {0}'.format(tot_length_indel)
-		print 'Total mismatch length: {0}'.format(tot_length_mismatch)
-		error_seq_length = tot_length_mismatch+tot_length_indel+tot_length_local+tot_extensive_reduced
-		#print 'Total length of incorrect sequence (not including extensive missassemblies that were not corrected to "local errors"): {0}'.format(error_seq_length)
-
-		if args.supplementary:
-			print 'misassemblies,error-seq-length,unaligned-length,NGA50,len-mismatch,len-indel,len-local'
-			quality_string = '{0},{1},{2},{3},{4},{5},{6}'.format(tot_extensive_before - nr_extensive_corrected, error_seq_length, unaligned_len,NGA50,tot_length_mismatch,tot_length_indel,tot_length_local )
-		else:
-			print 'misassemblies,error-seq-length,unaligned-length,NGA50'
-			quality_string = '{0},{1},{2},{3}'.format(tot_extensive_before - nr_extensive_corrected, error_seq_length, unaligned_len,NGA50)
-
+		quality_string = '{0}\t{1},{2},{3},{4},{5},{6}'.format(misassemblies, erroneous_length, unaligned_length, NGA50, number_of_gaps, total_gap_length )
 		print quality_string
-		print >> open(os.path.join(args.outpath,'gap_filling_quality_eval.csv'),'w' ), quality_string
+		
+		# print 'Number of "extensive errors" reduced from misassemblies to local misassemblies: {0}\nTotal extensive to local error length: {1}'.format(nr_extensive_corrected,tot_extensive_reduced)
+		# print 'Total misassemblies before {0}. Total misassemblies after {1}'.format(tot_extensive_before, tot_extensive_before - nr_extensive_corrected)
+		# print 'Local errors length: {0}\nTotal local errors found: {1}'.format(tot_length_local, nr_local)
+		# print 'Total indel length: {0}'.format(tot_length_indel)
+		# print 'Total mismatch length: {0}'.format(tot_length_mismatch)
+		# error_seq_length = tot_length_mismatch+tot_length_indel+tot_length_local+tot_extensive_reduced
 
-		#print >> open(os.path.join(args.outpath,'gap_filling_quality_eval.csv'),'w' ), quality_string
+		# if args.supplementary:
+		# 	print 'misassemblies,error-seq-length,unaligned-length,NGA50,len-mismatch,len-indel,len-local'
+		# 	quality_string = '{0},{1},{2},{3},{4},{5},{6}'.format(tot_extensive_before - nr_extensive_corrected, error_seq_length, unaligned_len,NGA50,tot_length_mismatch,tot_length_indel,tot_length_local )
+		# else:
+		# 	print 'misassemblies,error-seq-length,unaligned-length,NGA50'
+		# 	quality_string = '{0},{1},{2},{3}'.format(tot_extensive_before - nr_extensive_corrected, error_seq_length, unaligned_len,NGA50)
+
+		# print quality_string
+		# print >> open(os.path.join(args.outpath,'gap_filling_quality_eval.csv'),'w' ), quality_string
+
 	else:
-		# print '{0} does not exist. skipping...'.format(args.quast_misassemblies)
-		print >> open(os.path.join(args.outpath,'gap_filling_quality_eval.csv'),'w' ), '-,-,-,-,-,-'
+		print '-\t-\t-\t-\t-\t-'
 
 
-	try:
-		performance_string = parse_gnu_time(open(args.gnu_time,'r'))
-		print >> open(os.path.join(args.outpath,'gap_filling_performance_eval.csv'),'w' ), performance_string
-	except IOError:
-		print '{0} does not exist. skipping...'.format(args.gnu_time)
-		print >> open(os.path.join(args.outpath,'gap_filling_performance_eval.csv'),'w' ), '-,-,-'
-	
 
 
 if __name__ == '__main__':
     ##
     # Take care of input
 	parser = argparse.ArgumentParser(description="Sum up total erronous sequence lengths reported by quast.")
-	parser.add_argument('quast_stdout', type=str, help='A quast A quast contig_reports/contig_reports.stdout file.')
+	parser.add_argument('quast_stdout', type=str, help='A quast contig_reports/contig_reports.stdout file.')
 	parser.add_argument('quast_misassemblies', type=str, help='A quast contig_reports/missassemblies.txt file')
 	parser.add_argument('quast_report', type=str, help='A quast report.txt file.')
-	parser.add_argument('gnu_time', type=str, help='An outsahlin.stderr file with gnu time.')
+	parser.add_argument('scaffolds', type=str, help='A fasta file with scaffolds.')	
 	parser.add_argument('outpath', type=str, help='Folder for output.')
 
 	parser.add_argument('--N', dest='N',type=int, default=1000, help='How large a large misassembly should be regarded as.')
