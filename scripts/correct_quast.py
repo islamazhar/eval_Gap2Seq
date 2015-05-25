@@ -272,7 +272,7 @@ def parse_quast_report(infile):
 	filtered_lines=[]
 	print lines[9],lines[10]	
 	print int(lines[9][2])/float(lines[10][2])
-	if int(lines[9][3])/float(lines[10][3]) >= 0.75:
+	if int(lines[9][2])/float(lines[10][2]) >= 0.75:
 		unaligned_row = 26
 		NGA_row = 34
 	else:
@@ -283,9 +283,9 @@ def parse_quast_report(infile):
 		content = filter(lambda x: x != '',line )
 		if unaligned_row == i:
 			print line
-			unaligned_len = int(content[2])
+			unaligned_len = int(content[1])
 		if NGA_row == i:
-			NGA50 = int(content[2])
+			NGA50 = int(content[1])
 	return unaligned_len, NGA50
 
 
@@ -383,7 +383,7 @@ def main(args):
 
 		quality_string = '{0}\t{1},{2},{3},{4},{5},{6}'.format(misassemblies, erroneous_length, unaligned_length, NGA50, number_of_gaps, total_gap_length )
 		print quality_string
-		
+
 		# print 'Number of "extensive errors" reduced from misassemblies to local misassemblies: {0}\nTotal extensive to local error length: {1}'.format(nr_extensive_corrected,tot_extensive_reduced)
 		# print 'Total misassemblies before {0}. Total misassemblies after {1}'.format(tot_extensive_before, tot_extensive_before - nr_extensive_corrected)
 		# print 'Local errors length: {0}\nTotal local errors found: {1}'.format(tot_length_local, nr_local)

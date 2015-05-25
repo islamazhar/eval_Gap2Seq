@@ -455,13 +455,13 @@ rule QUAST:
        path=config["quast_rules"]["path"]
        min_contig =  config["quast_rules"]["min_contig"]
        outpath="/tmp/{0}_{1}_{2}/QUAST/".format(wildcards.dataset, wildcards.gapfiller, wildcards.assembler)
-       shell(" {python} {path}quast.py --strict-NA -R {input.ref} -o {outpath} -s --no-plots {input.scaffolds} ") 
+       shell(" {python} {path}quast.py --strict-NA -R {input.ref} -o {outpath} --no-plots {input.scaffolds} ") 
        
        # only saving the two relevant files from QUAST to out output folder
        # these will be used to get the results in the QUAST_CORRECTION rule
        shell("mv {outpath}contigs_reports/misassemblies_report.txt {output.quast_misassm_file} ")
        shell("mv {outpath}report.txt {output.quast_report}")
-       shell("mv {outpath}contigs_reports/contigs_report_*.stdout  {output.quast_stdout}")
+       shell("mv {outpath}contigs_reports/contigs_report_*.stdout {output.quast_stdout}")
 
 
 
@@ -480,7 +480,7 @@ rule QUAST_CORRECTION:
         memsize = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_memsize"],
         partition = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_partition"],
         n = lambda wildcards: config["SBATCH"][wildcards.dataset]["small_n"],
-       jobname="quast_{dataset}_{gapfiller}",
+       jobname="quast_correction_{dataset}_{gapfiller}",
        account=config["SBATCH"]["ACCOUNT"],
        mail=config["SBATCH"]["MAIL"],
        mail_type=config["SBATCH"]["MAIL_TYPE"]
@@ -489,8 +489,8 @@ rule QUAST_CORRECTION:
        shell("{env}")
        python = config["PYTHON2"]       
        path=config["scripts_path"]
-       shell(" {python} {path}correct_quast.py --N 4000 {input.quast_stdout} {input.quast_misassm_file} {input.quast_report} {input.scaffolds}") 
-
+       result = list(shell(" {python} {path}correct_quast.py --N 4000 {input.quast_stdout} {input.quast_misassm_file} {input.quast_report} {input.scaffolds}",iterable=True)) 
+       print result
        #misassmblies, N50, NA50, tot_length, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME = parse_quast(outpath+"report.txt")
        #e_size = get_esize(input.scaffolds)
        print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}".format(wildcards.assembler, wildcards.gapfiller, tot_length, N50, misassmblies,  NA50, ESIZE_ASSEMBLY, ESIZE_GENOME, CORR_ESIZE_ASSEMBLY, CORR_ESIZE_GENOME), file=open(output.nice_format, 'w'))    
