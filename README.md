@@ -23,13 +23,14 @@ We assume that you have Gap2Seq, GapCloser and GapFiller installed and in path (
      
      perl /home/kris/source/GapFiller_v1-10_linux-x86_64/./GapFiller.pl $args
 
+
 ### Running snakemake
 
 In the current shell, run
 
     $ pyenv shell 3.4.1
 
-to activate python 3 in the current shell. Now run,
+to activate python 3 in the current shell. **Make sure the paths in the config.json file are correct**. Now run,
 
     $ snakemake run_gapfillers
 
