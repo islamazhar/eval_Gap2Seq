@@ -1,13 +1,13 @@
 { 
-	"scripts_path" : "/home/kris/git_repos/eval_Gap2Seq/scripts/",
+	"scripts_path" : "/home/islamazhar/eval_Gap2Seq/scripts/",
     "quast_rules" : {
-        "path" : "/home/kris/source/quast-2.3/",
+        "path" : "/home/islamazhar/quast-2.3/",
         "min_contig" : "200"
     },
 
     "SBATCH" : {
             "ACCOUNT" : "b2010042",
-            "MAIL" : "kristoffer.sahlin@scilifelab.se",
+            "MAIL" : "mazhar.buet11@gmail.com",
             "MAIL_TYPE" : "FAIL",
             "staph" : { "partition" : "node", 
                         "n" : "1", 
@@ -48,34 +48,34 @@
                         }
     },
 
-    "DATASETS" : [ "staph", "rhodo", "hs14"],
+    "DATASETS" : [ "staph"],
 
 
-    "staph" : { "ABySS" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS/genome.scf.fasta"
+    "staph" : { "ABySS" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/ABySS/genome.scf.fasta"
                             }, 
-                "ABySS2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/ABySS2/genome.scf.fasta"
+                "ABySS2" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/ABySS2/genome.scf.fasta"
                                     }, 
-                "Bambus2" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Bambus2/genome.scf.fasta"
+                "Bambus2" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/Bambus2/genome.scf.fasta"
                                     }, 
-                "Allpaths-LG" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Allpaths-LG/genome.scf.fasta"
+                "Allpaths-LG" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/Allpaths-LG/genome.scf.fasta"
                                     },
-                "MSR-CA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/MSR-CA/genome.scf.fasta"
+                "MSR-CA" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/MSR-CA/genome.scf.fasta"
                                     },
-                "SGA" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SGA/genome.scf.fasta"
+                "SGA" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/SGA/genome.scf.fasta"
                                     },
-                "SOAPdenovo" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/SOAPdenovo/genome.scf.fasta"
+                "SOAPdenovo" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/SOAPdenovo/genome.scf.fasta"
                                     },
-                "Velvet" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Assembly/Velvet/genome.scf.fasta"
+                "Velvet" : {"SCAFFOLDS" : "/home/islamazhar/GAGE_Data/Staph/Assembly/Velvet/genome.scf.fasta"
                                     },
-                "MERGED_READS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/frag_merged.fastq.gz",
+                "MERGED_READS" : "/home/islamazhar/Data/Staph/GAGE_Data/original/frag_merged.fastq.gz",
                        
                     "GAPCLOSER_CONFIG" : "tool_configs/GapCloser/Staphylococcus_aureus.config",
                     "GAPFILLER_BWA_CONFIG" : "tool_configs/GapFiller_bwa/Staphylococcus_aureus.config",
                     "GAPFILLER_BOWTIE_CONFIG" : "tool_configs/GapFiller_bowtie/Staphylococcus_aureus.config",
 
                 "ASSEMBLERS" : ["ABySS", "ABySS2", "Allpaths-LG", "Bambus2", "MSR-CA", "SGA", "SOAPdenovo", "Velvet"],
-                "OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/staph/",
-                "REF" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Staphylococcus_aureus/Data.original/genome.fasta"
+                "OUTBASE" : "/home/islamazhar/GAGE_Data/Staph/output/",
+                "REF" : "/home/islamazhar/GAGE_Data/Staph/Data/original/genome.fasta"
             },
 
     "rhodo" : {   "ABySS" : {"SCAFFOLDS" : "/proj/b2013169/private/data/gage.cbcb.umd.edu/data/Rhodobacter_sphaeroides/Assembly/ABySS/genome.scf.fasta"
@@ -143,5 +143,5 @@
 	"LOAD_PYTHON_ENV" : "pyenv global system 3.4.1 2.7.6",
 	"PYTHON2" : "python2.7",
 	"GNUTIME" : "/usr/bin/time -v",
-	"OUTBASE" : "/proj/b2013169/private/data/gapfilling/output/" 
+	"OUTBASE" : "/home/islamazhar/eval_Gap2Seq/output/"
 }

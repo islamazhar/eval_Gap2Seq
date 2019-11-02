@@ -275,7 +275,7 @@ rule Gap2Seq:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAP2SEQ_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} Gap2Seq -filled {output.fasta} -scaffolds {input.scaffolds} -reads {input.reads} 1>  {stdout} 2> {output.stderr} ")
+        shell("{time} $Gap2Seq -f {output.fasta} -s {input.scaffolds} -r {input.reads} 1>  {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
 
 rule GapCloser:
@@ -296,7 +296,7 @@ rule GapCloser:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAPCLOSER_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} GapCloser -a {input.scaffolds} -b {input.config} -o {output.fasta} 1> {stdout} 2> {output.stderr} ")
+        shell("{time} $GapCloser -a {input.scaffolds} -b {input.config} -o {output.fasta} 1> {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
 
 rule GapFiller_bwa:
@@ -317,7 +317,7 @@ rule GapFiller_bwa:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAPFILLER_BWA_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bwa_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
+        shell("{time} $GapFiller  -s {input.scaffolds} -l {input.config} -b bwa_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
         shell("mv bwa_{wildcards.dataset}_{wildcards.assembler}/bwa_{wildcards.dataset}_{wildcards.assembler}.gapfilled.final.fa {output.fasta}")
         shell("rm -r bwa_{wildcards.dataset}_{wildcards.assembler}")
@@ -340,7 +340,7 @@ rule GapFiller_bowtie:
     run:
         time = config["GNUTIME"]
         stdout = config["OUTBASE"]+"{0}/GAPFILLER_BOWTIE_{1}.stdout".format(wildcards.dataset, wildcards.assembler)
-        shell("{time} GapFiller  -s {input.scaffolds} -l {input.config} -b bowtie_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
+        shell("{time} $GapFiller  -s {input.scaffolds} -l {input.config} -b bowtie_{wildcards.dataset}_{wildcards.assembler} > {stdout} 2> {output.stderr} ")
         shell("cat {stdout} {output.stderr} > {log}")
         shell("mv bowtie_{wildcards.dataset}_{wildcards.assembler}/bowtie_{wildcards.dataset}_{wildcards.assembler}.gapfilled.final.fa {output.fasta}")
         shell("rm -r bowtie_{wildcards.dataset}_{wildcards.assembler}")
