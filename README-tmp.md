@@ -1,6 +1,6 @@
 - Place `Gap2Seq`, `GapCloser`, `GapFiller`, and `Quast` in the `$HOME`. 
 For gapfiller see this https://github.com/islamazhar/eval_Gap2Seq#preliminaries.
-
+- Get Quast 2.3 from here https://sourceforge.net/projects/quast/files/
 Add the following lines to bashrc file
 
     export Gap2Seq=$HOME/Gap-filling/eval-insertfill/Gap2Seq/build/Gap2Seq
